@@ -1,0 +1,14 @@
+[build]
+dist = "dist"
+
+[serve]
+port = 8080
+open = true
+
+
+[[copy]]
+source = "static"
+dest = "."
+
+[watch]
+ignore = ["dist/assets", "dist", "static"]
