@@ -1,15 +1,17 @@
 use yew::prelude::*;
-use yew_router::prelude::Link;
+use yew_router::prelude::*;
 use crate::Route;
-use std::process::id;
 
 #[function_component(Steps)]
 pub fn steps() -> Html {
+    let location = use_location().unwrap();
+    let current_route = location.path();
+
     let steps = vec![
-        ("Step 1", 1),
-        ("Step 2", 2),
-        ("Step 3", 3),
-        ("Summary", 4),
+        ("Step 1", Route::FirstStep, 1),
+        ("Step 2", Route::Step { id: 2 }, 2),
+        ("Step 3", Route::Step { id: 3 }, 3),
+        ("Summary", Route::Step { id: 4 }, 4),
     ];
 
     let is_expanded = use_state(|| true);
@@ -36,12 +38,25 @@ pub fn steps() -> Html {
                 html! {
                     <div class="section-content">
                         <ul class="section-list">
-                            { for steps.iter().map(|(step_name, step_id)| html! {
-                                <li class="section-item" key={*step_id}>
-                                    <Link<Route> to={Route::Step { id: *step_id }} classes="section-link">
-                                        <span class="section-text">{ step_name }</span>
-                                    </Link<Route>>
-                                </li>
+                            { for steps.iter().map(|(step_name, route, step_id)| {
+                                let is_active = match route {
+                                    Route::FirstStep => current_route == "/first-step",
+                                    Route::Step { id } => current_route == format!("/step/{}", id),
+                                    _ => false,
+                                };
+                                
+                                html! {
+                                    <li class="section-item" key={*step_id}>
+                                        <Link<Route> 
+                                            to={route.clone()} 
+                                            classes={classes!("section-link")}
+                                        >
+                                            <span class={classes!("section-text", if is_active { "active-text" } else { "" })}>
+                                                { step_name }
+                                            </span>
+                                        </Link<Route>>
+                                    </li>
+                                }
                             }) }
                         </ul>
                     </div>
