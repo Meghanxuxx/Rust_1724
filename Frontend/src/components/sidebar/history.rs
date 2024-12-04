@@ -1,7 +1,6 @@
 use yew::prelude::*;
 use yew_router::prelude::Link;
 use crate::Route;
-use std::process::id;
 
 #[function_component(History)]
 pub fn history() -> Html {
@@ -18,15 +17,15 @@ pub fn history() -> Html {
 ];
 
 
-    let is_expanded = use_state(|| true);
+    let expanded_true = use_state(|| true);
     let toggle_expanded = {
-        let is_expanded = is_expanded.clone();
-        Callback::from(move |_| is_expanded.set(!*is_expanded))
+        let expanded_true = expanded_true.clone();
+        Callback::from(move |_| expanded_true.set(!*expanded_true))
     };
 
     html! {
-        <div class={classes!("section", "history", if *is_expanded { "expanded" } else { "collapsed" })}>
-            { if *is_expanded {
+        <div class={classes!("section", "history", if *expanded_true { "expanded" } else { "collapsed" })}>
+            { if *expanded_true {
                 html! { <div class="section-line"></div> }
             } else {
                 html! {}
@@ -36,9 +35,9 @@ pub fn history() -> Html {
                     <img src="assets/history.png" alt="History Icon" class="section-icon" />
                 </div>
                 <span class="section-title">{ "History" }</span>
-                <img src={if *is_expanded { "assets/up.png" } else { "assets/down.png" }} alt="Toggle Arrow" class="section-arrow" />
+                <img src={if *expanded_true { "assets/up.png" } else { "assets/down.png" }} alt="Toggle Arrow" class="section-arrow" />
             </div>
-            { if *is_expanded {
+            { if *expanded_true {
                 html! {
                     <div class="section-content">
                         <div class="history-content">

@@ -985,7 +985,7 @@ body {
     line-height: 38px;
     letter-spacing: -0.013em;
     color: #334B7D;
-    margin-bottom: 65px;
+    margin-bottom: 45px !important;
 }
 
 .chat-container {
@@ -1209,3 +1209,52 @@ body {
 .delay-2 { animation-delay: 1.2s; }
 .delay-3 { animation-delay: 1.4s; }
 .delay-4 { animation-delay: 1.6s; }
+.delay-5 { animation-delay: 1.8s; }
+
+.second-step-page .chat-container,
+.first-step-page .chat-container {
+    width: 100%;
+}
+
+.second-step-page .chat-message,
+.first-step-page .chat-message {
+    display: flex;
+    flex-direction: column;
+}
+
+.second-step-page .chat-container {
+    margin-bottom: -10px;
+}
+
+.first-step-container {
+    padding: 120px 0 0 30px;
+    max-width: calc(100vw - 300px);
+}
+
+.buttons-container {
+    display: flex;
+    gap: 16px;
+    margin-top: 24px;
+    padding: 0 16px;
+}
+
+.edit-button, .continue-button {
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.edit-button {
+    background: #F1F5F9;
+    color: #334B7D;
+    border: 1px solid #E2E8F0;
+}
+
+.continue-button {
+    background: #334B7D;
+    color: white;
+    border: none;
+}
