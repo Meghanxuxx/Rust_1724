@@ -57,6 +57,7 @@ rustup target add wasm32-unknown-unknown
 ## Others
 
 现在的页面都是半成品，前端还没有做完 x_x
+用的是 Yew，格式/Tut 参考：https://yew.rs/docs/getting-started/introduction
 
 ## License
 
