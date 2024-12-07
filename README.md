@@ -56,8 +56,10 @@ rustup target add wasm32-unknown-unknown
 
 ## Others
 
-现在的页面都是半成品，前端还没有做完 x_x
-用的是 Yew，格式/Tut 参考：https://yew.rs/docs/getting-started/introduction
+目前前后端是分开的，后端在http://127.0.0.1:8081，前端在http://127.0.0.1:8080
+前端如何运行：trunk serve
+后端： cargo run
+前端用的是 Yew，格式/Tut 参考：https://yew.rs/docs/getting-started/introduction
 
 ## License
 
