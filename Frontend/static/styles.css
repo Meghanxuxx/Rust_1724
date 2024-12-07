@@ -982,10 +982,10 @@ body {
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-weight: 700;
     font-size: 42px;
-    line-height: 38px;
+    line-height: 48px;
     letter-spacing: -0.013em;
     color: #334B7D;
-    margin-bottom: 45px !important;
+    margin-bottom: 42px !important;
 }
 
 .chat-container {
@@ -1257,4 +1257,485 @@ body {
     background: #334B7D;
     color: white;
     border: none;
+}
+
+.account-page-container {
+    display: flex;
+    min-height: 100vh;
+    height: 100vh;
+}
+
+.account-left-panel {
+    width: 45%;
+    min-width: 600px;
+    height: 100%;
+    background-color: #334B7D;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 0;
+}
+
+.account-quote-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 600px;
+    margin-top: 35vh;
+}
+
+.account-quote-marks {
+    width: 110.1px;
+    height: 81.9px;
+    color: #B2D7FD;
+    font-size: 72px;
+    line-height: 1;
+    margin-bottom: 20px;
+}
+
+.account-quote-text {
+    font-family: 'DM Serif Display', serif;
+    font-size: 72px;
+    font-weight: 400;
+    line-height: 120%;
+    color: #F5F5F5;
+    width: 600px;
+    text-align: center;
+}
+
+.account-right-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+    position: relative;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.account-page-logo {
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+}
+
+.account-page-logo .logo-icon {
+    width: 40px;
+    height: 40px;
+}
+
+.account-page-logo .logo-text {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #334B7D;
+}
+
+.account-form-container {
+    width: 472px;
+    margin: 200px auto 0;
+}
+
+.account-form-title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 140%;
+    color: #023F80;
+    margin-bottom: 8px;
+}
+
+.account-form-subtitle {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 160%;
+    color: #747577;
+    margin-bottom: 32px;
+}
+
+.account-form-group {
+    margin-bottom: 24px;
+}
+
+.account-form-group label {
+    display: block;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 185%;
+    color: #747577;
+    margin-bottom: 8px;
+}
+
+.account-form-group input {
+    width: 472px;
+    height: 24px;
+    padding: 16px;
+    border: 1px solid #D0D3DB;
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    color: #333;
+}
+
+.account-signup-button {
+    width: 472px;
+    height: 58px;
+    background-color: #023F80;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 160%;
+    cursor: pointer;
+    margin-top: 32px;
+}
+
+.account-login-link {
+    text-align: center;
+    margin-top: 24px;
+}
+
+.account-login-link a {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 160%;
+    color: #023F80;
+    text-decoration: none;
+}
+
+.account-login-link a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 1366px) {
+    .account-left-panel {
+        width: 650px;
+    }
+    
+    .account-quote-container {
+        margin-top: 30vh;
+    }
+
+    .account-form-container {
+        margin-top: 180px;
+    }
+}
+
+@media (min-width: 1920px) {
+    .account-quote-container {
+        margin-top: 40vh;
+    }
+    
+    .account-quote-text {
+        font-size: 82px;
+    }
+
+    .account-form-container {
+        margin-top: 440px;
+    }
+}
+
+.password-input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-input-container input {
+    width: 100%;
+    padding-right: 40px;
+}
+
+.toggle-password-btn {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    padding: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.toggle-password-btn img {
+    width: 20px;
+    height: 20px;
+    opacity: 0.6;
+}
+
+.toggle-password-btn:hover img {
+    opacity: 1;
+}
+
+.account-register-section {
+    text-align: center;
+    margin-top: 24px;
+}
+
+.account-register-text {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    color: #1A1A1A;
+    margin-bottom: 12px;
+}
+
+.account-register-button {
+    display: inline-block;
+    width: 100%;
+    padding: 16px;
+    background: #FFFFFF;
+    border: 1px solid #023F80;
+    border-radius: 8px;
+    color: #023F80;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: none;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.account-register-button:hover {
+    background-color: #F5F8FF;
+}
+
+.account-about-link {
+    text-align: center;
+    margin-top: 40px;
+    padding-bottom: 20px;
+}
+
+.account-about-link a {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    color: #747577;
+    text-decoration: none;
+}
+
+.account-about-link a:hover {
+    text-decoration: underline;
+}
+
+.account-form-container {
+    width: 472px;
+    margin: 200px auto 0;
+}
+
+@media (max-width: 1366px) {
+    .account-form-container {
+        margin-top: 180px;
+    }
+}
+
+@media (min-width: 1920px) {
+    .account-form-container {
+        margin-top: 240px;
+    }
+}
+
+.login-page-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px;
+    background-color: #FFFFFF;
+}
+
+.login-form-container {
+    width: 472px;
+    margin-top: 200px;
+}
+
+.login-form-title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 140%;
+    color: #023F80;
+    margin-bottom: 32px;
+    text-align: center;
+}
+
+.login-form-group {
+    margin-bottom: 24px;
+}
+
+.login-form-group label {
+    display: block;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 185%;
+    color: #747577;
+    margin-bottom: 8px;
+}
+
+.login-form-group input {
+    width: 100%;
+    height: 48px;
+    padding: 12px 16px;
+    border: 1px solid #D0D3DB;
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    color: #333;
+}
+
+.login-button {
+    width: 100%;
+    height: 48px;
+    background-color: #023F80;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 160%;
+    cursor: pointer;
+    margin-top: 32px;
+}
+
+.login-register-section {
+    text-align: center;
+    margin-top: 24px;
+}
+
+.login-register-text {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    color: #1A1A1A;
+    margin-bottom: 12px;
+}
+
+.login-register-button {
+    display: inline-block;
+    width: 100%;
+    height: 46.92px;
+    line-height: 46.92px;
+    padding: 0;
+    background: #FFFFFF;
+    border: 1px solid #878787;
+    border-radius: 488.8px;
+    color: #6A6A6A;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.login-register-button:hover {
+    background-color: #F5F8FF;
+}
+
+.login-about-link {
+    text-align: center;
+    margin-top: 60px;
+    padding-top: 20px;
+    position: relative;
+}
+
+.login-about-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -50px;
+    right: -50px;
+    height: 1px;
+    background-color: #DEE5ED;
+}
+
+.login-about-link a {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    color: #747577;
+    text-decoration: none;
+}
+
+.login-about-link a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 1366px) {
+    .login-form-container {
+        margin-top: 180px;
+    }
+}
+
+@media (min-width: 1920px) {
+    .login-form-container {
+        margin-top: 240px;
+    }
+}
+
+.password-input-container .toggle-password-btn {
+    top: 50%;
+    transform: translateY(-50%);
+    height: 48px;
+    display: flex;
+    align-items: center;
+}
+
+
+.final-step-container {
+    padding: 120px 0 0 30px;
+    max-width: calc(100vw - 300px);
+}
+
+.final-step-page {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.final-step-page .chat-container {
+    width: 100%;
+}
+
+.final-step-page .chat-message {
+    display: flex;
+    flex-direction: column;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.action-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    background-color: #f0f2f5;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.action-button:hover {
+    background-color: #e4e6e9;
+}
+
+.button-icon {
+    width: 20px;
+    height: 20px;
 }

@@ -11,7 +11,7 @@ pub fn steps() -> Html {
         ("Step 1", Route::FirstStep, 1),
         ("Step 2", Route::SecondStep, 2),
         ("Step 3", Route::ThirdStep, 3),
-        ("Summary", Route::Step { id: 4 }, 4),
+        ("Summary", Route::FinalStep, 4),
     ];
 
     let expanded_true = use_state(|| true);
@@ -43,7 +43,7 @@ pub fn steps() -> Html {
                                     Route::FirstStep => current_route == "/first-step",
                                     Route::SecondStep => current_route == "/second-step",
                                     Route::ThirdStep => current_route == "/third-step",
-                                    Route::Step { id: 4 } => current_route == "/step/4",
+                                    Route::FinalStep => current_route == "/final-step",
                                     _ => false,
                                 };
                                 

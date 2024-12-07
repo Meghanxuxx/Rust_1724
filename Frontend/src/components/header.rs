@@ -9,16 +9,9 @@ pub struct HeaderProps {
 
 #[function_component(Header)]
 pub fn header(props: &HeaderProps) -> Html {
-    let sign_in_onclick = Callback::from(|_| {
-        // TODO: 登录功能
-    });
 
     let about_us_onclick = Callback::from(|_| {
         // TODO: AboutUs功能
-    });
-
-    let create_account_onclick = Callback::from(|_| {
-        // TODO: 创建账户功能
     });
 
     html! {
@@ -31,12 +24,12 @@ pub fn header(props: &HeaderProps) -> Html {
                     </div>
                 </Link<Route>>
                 <ul class="nav-links">
-                    <li><a href="#signin" class="nav-link" onclick={sign_in_onclick}>{"Sign In"}</a></li>
+                    <li><Link<Route> to={Route::Login} classes="nav-link">{"Sign In"}</Link<Route>></li>
                     <li><a href="#about" class="nav-link" onclick={about_us_onclick}>{"About Us"}</a></li>
                     <li>
-                        <a href="#create-account" class="btn-create-account" onclick={create_account_onclick}>
+                        <Link<Route> to={Route::CreateAccount} classes="btn-create-account">
                             {"Create account"}
-                        </a>
+                        </Link<Route>>
                     </li>
                 </ul>
             </nav>

@@ -1,6 +1,6 @@
 mod components;
 mod pages;
-mod api;
+mod types; 
 
 use yew::prelude::*;
 use yew_router::Routable;
@@ -11,12 +11,18 @@ use pages::home_page::ContentSection;
 use pages::first_step_page::FirstStepPage;
 use pages::second_step_page::SecondStepPage;
 use pages::third_step_page::ThirdStepPage;
-use pages::user_check_page::UserCheckPage;
+use pages::create_account_page::CreateAccountPage;
+use pages::login_page::LoginPage;
+use pages::final_step_page::FinalStepPage;
 
 #[derive(Routable, PartialEq, Clone, Debug)]
 pub enum Route {
     #[at("/")]
     Home,
+    #[at("/create-account")]
+    CreateAccount,
+    #[at("/login")]
+    Login,
     #[at("/first-step")]
     FirstStep,
     #[at("/second-step")]
@@ -27,11 +33,11 @@ pub enum Route {
     Step { id: usize },
     #[at("/history/:id")]
     HistoryItem { id: usize },
+    #[at("/final-step")]
+    FinalStep,
     #[not_found]
     #[at("/404")]
     NotFound,
-    #[at("/user-check")]
-    UserCheck,
 }
 
 #[function_component(App)]
@@ -53,6 +59,12 @@ fn switch(routes: Route) -> Html {
                 </div>
             </>
         },
+        Route::CreateAccount => html! {
+            <CreateAccountPage />
+        },
+        Route::Login => html! {
+            <LoginPage />
+        },
         Route::FirstStep => html! {
             <FirstStepPage />
         },
@@ -68,9 +80,9 @@ fn switch(routes: Route) -> Html {
         Route::HistoryItem { id } => html! {
             <p>{ format!("History item page with id: {}", id) }</p>
         },
-        Route::NotFound => html! { <p>{ "Page Not Found x_x" }</p> },
-        Route::UserCheck => html! {
-            <UserCheckPage />
+        Route::FinalStep => html! {
+            <FinalStepPage />
         },
+        Route::NotFound => html! { <p>{ "Page Not Found x_x" }</p> },
     }
 }
