@@ -86,6 +86,32 @@ async fn login(user: web::Json<User>, data: web::Data<MyData>) -> HttpResponse {
 }
 
 
+/// 处理Step1
+///
+/// 输入格式:
+/// ```json
+/// {
+///     "step": 1,
+///     "content": "用户输入的内容",
+///     "user_id": "用户ID（没登录的时候是Null）"
+/// }
+/// ```
+/// 
+/// 目前返回格式:
+/// ```json
+/// {
+///     "message": "成功",
+///     "content": "用户输入的内容"
+/// }
+/// ```
+#[post("/api/step1")]
+async fn handle_step1(input: web::Json<CoverLetterInput>) -> HttpResponse {
+    HttpResponse::Ok().json(json!({
+        "message": "Step 1 received successfully",
+        "content": input.content
+    }))
+}
+
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     // init the user store
@@ -110,34 +136,9 @@ async fn main() -> std::io::Result<()> {
             .app_data(my_data.clone())
             .service(register)
             .service(login)
-            .route("/api/step1", web::post().to(handle_step1))
+            .service(handle_step1)
     })
     .bind("127.0.0.1:8081")?
     .run()
     .await
 }
-
-/// 输入格式:
-/// ```json
-/// {
-///     "step": 1,
-///     "content": "用户输入的内容",
-///     "user_id": "用户ID（没登录的时候是Null）"
-/// }
-/// ```
-/// 
-/// 返回格式:
-/// ```json
-/// {
-///     "message": "成功",
-///     "content": "用户输入的内容"
-/// }
-/// ```
-
-// 处理step 1
-async fn handle_step1(input: web::Json<CoverLetterInput>) -> HttpResponse {
-    HttpResponse::Ok().json(json!({
-        "message": "Step 1 received successfully",
-        "content": input.content
-    }))
-} 
