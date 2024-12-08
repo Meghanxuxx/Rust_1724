@@ -5,15 +5,14 @@ use yew_router::prelude::*;
 use crate::types::User;
 use gloo_net::http::Request;
 
-// try to login
-async fn try_login(name: &str, pwd: &str) -> Result<(), String> {
-
+async fn login(name: &str, pwd: &str) -> Result<(), String> {
     if name.trim().is_empty() {
-        return Err("Username is empty".to_string());
+        return Err("Please enter username".to_string());
     }
     if pwd.trim().is_empty() {
-        return Err("Password is empty".to_string());
+        return Err("Please enter password".to_string());
     }
+    
     let user = User {
         id: String::new(),
         name: name.to_string(),
@@ -22,21 +21,18 @@ async fn try_login(name: &str, pwd: &str) -> Result<(), String> {
         gender: None,
     };
 
-    let req = Request::post("http://127.0.0.1:8081/login");
-    
-    // try to make json
-    let req = match req.json(&user) {
-        Ok(req) => req,
-        Err(_) => return Err("Something broke".to_string())
+    let request = Request::post("http://127.0.0.1:8081/login");
+    let request = match request.json(&user) {
+        Ok(request) => request,
+        Err(_) => return Err("Data format error".to_string())
     };
 
-    // try to send
-    let resp = match req.send().await {
-        Ok(r) => r,
-        Err(_) => return Err("Can't connect to server".to_string())
+    let result = match request.send().await {
+        Ok(result) => result,
+        Err(_) => return Err("Server connection failed".to_string())
     };
 
-    if resp.ok() {
+    if result.ok() {
         Ok(())
     } else {
         Err("Wrong username or password".to_string())
@@ -45,47 +41,42 @@ async fn try_login(name: &str, pwd: &str) -> Result<(), String> {
 
 #[function_component(LoginPage)]
 pub fn login_page() -> Html {
-    // refs for our inputs
-    let name_ref = use_node_ref();
-    let pwd_ref = use_node_ref();
-    let error = use_state(|| None::<String>);
+    let username = use_node_ref();
+    let password = use_node_ref();
+    let error_message = use_state(|| None::<String>);
     
-    let nav = use_navigator().unwrap();
-    let show_pwd = use_state(|| false);
+    let navigator = use_navigator().unwrap();
+    let show_password = use_state(|| false);
 
-    // html stuff - toggle password visibility
-    let toggle_pwd = {
-        let show_pwd = show_pwd.clone();
+    let toggle_password = {
+        let show_password = show_password.clone();
         Callback::from(move |_| {
-            show_pwd.set(!*show_pwd);
+            show_password.set(!*show_password);
         })
     };
 
-    // handle form submit
-    let on_submit = {
-        let name_ref = name_ref.clone();
-        let pwd_ref = pwd_ref.clone();
-        let error = error.clone();
-        let nav = nav.clone();
+    let handle_submit = {
+        let username = username.clone();
+        let password = password.clone();
+        let error_message = error_message.clone();
+        let navigator = navigator.clone();
 
         Callback::from(move |e: SubmitEvent| {
             e.prevent_default();
             
-            // get input values
-            let name = name_ref.cast::<HtmlInputElement>().unwrap().value();
-            let pwd = pwd_ref.cast::<HtmlInputElement>().unwrap().value();
+            let name = username.cast::<HtmlInputElement>().unwrap().value();
+            let pass = password.cast::<HtmlInputElement>().unwrap().value();
 
-            let error = error.clone();
-            let nav = nav.clone();
+            let error_message = error_message.clone();
+            let navigator = navigator.clone();
 
-            // try to login
             wasm_bindgen_futures::spawn_local(async move {
-                match try_login(&name, &pwd).await {
+                match login(&name, &pass).await {
                     Ok(_) => {
-                        nav.push(&Route::Home);  // go home if login works
+                        navigator.push(&Route::Home);
                     }
-                    Err(e) => {
-                        error.set(Some(e));
+                    Err(msg) => {
+                        error_message.set(Some(msg));
                     }
                 }
             });
@@ -93,10 +84,10 @@ pub fn login_page() -> Html {
     };
 
     html! {
-        <div class="account-page-container">
-            <div class="account-left-panel">
-                <div class="account-quote-container">
-                    <div class="account-quote-marks">{"❝"}</div>
+        <div class="account-page">
+            <div class="account-left">
+                <div class="account-quote">
+                    <div class="account-quote-mark">{"❝"}</div>
                     <h1 class="account-quote-text">
                         {"Your Career, One"}
                         <br/>
@@ -105,47 +96,48 @@ pub fn login_page() -> Html {
                 </div>
             </div>
             
-            <div class="account-right-panel">
-                <Link<Route> to={Route::Home} classes="account-page-logo">
-                    <img src="assets/logo.png" alt="Logo" class="logo-icon" />
-                    <span class="logo-text">{"CoverDraft"}</span>
+            <div class="account-right">
+                <Link<Route> to={Route::Home} classes="account-logo">
+                    <img src="assets/logo.png" alt="Logo" class="account-logo-img" />
+                    <span class="account-logo-text">{"CoverDraft"}</span>
                 </Link<Route>>
                 
-                <div class="account-form-container">
-                    <h2 class="account-form-title">{"Welcome Back!"}</h2>
-                    <p class="account-form-subtitle">{"Login to your account"}</p>
-                    if let Some(err) = (*error).clone() {
-                        <div class="error-message">
-                            {err}
+                <div class="account-form">
+                    <h2 class="account-title">{"Welcome Back!"}</h2>
+                    <p class="account-desc">{"Login to your account"}</p>
+                    
+                    if let Some(msg) = (*error_message).clone() {
+                        <div class="account-error">
+                            {msg}
                         </div>
                     }
                     
-                    <form onsubmit={on_submit}>
-                        <div class="account-form-group">
+                    <form onsubmit={handle_submit}>
+                        <div class="account-input">
                             <label for="username">{"Username"}</label>
                             <input 
                                 type="text"
                                 id="username"
                                 placeholder="username"
-                                ref={name_ref}
+                                ref={username}
                             />
                         </div>
                     
-                        <div class="account-form-group">
+                        <div class="account-input">
                             <label for="password">{"Password"}</label>
-                            <div class="password-input-container">
+                            <div class="account-password">
                                 <input 
-                                    type={if *show_pwd { "text" } else { "password" }}
+                                    type={if *show_password { "text" } else { "password" }}
                                     id="password"
                                     placeholder="password"
-                                    ref={pwd_ref}
+                                    ref={password}
                                 />
                                 <button 
                                     type="button"
-                                    class="toggle-password-btn"
-                                    onclick={toggle_pwd}
+                                    class="account-password-toggle"
+                                    onclick={toggle_password}
                                 >
-                                    if *show_pwd {
+                                    if *show_password {
                                         <img src="assets/eye-off.svg" alt="Hide" />
                                     } else {
                                         <img src="assets/eye.svg" alt="Show" />
@@ -154,12 +146,12 @@ pub fn login_page() -> Html {
                             </div>
                         </div>
                         
-                        <button type="submit" class="login-button">
+                        <button type="submit" class="account-submit">
                             {"Login"}
                         </button>
                     </form>
                     
-                    <div class="account-login-link">
+                    <div class="account-login">
                         <Link<Route> to={Route::CreateAccount}>
                             {"Don't have an account? Register here"}
                         </Link<Route>>

@@ -8,69 +8,64 @@ use crate::types::CoverLetterInput;
 use crate::Route;
 use yew_router::prelude::*;
 
+// 获取用户ID
 fn get_user_id() -> Option<String> {
-    if let Some(window) = web_sys::window() {
-        // get localStorage
-        if let Ok(Some(storage)) = window.local_storage() {
-            if let Ok(Some(uid)) = storage.get_item("user_id") {
-                return Some(uid);
-            }
-        }
-    }
-    None
+    let window = web_sys::window()?;
+    let storage = window.local_storage().ok()??;
+    storage.get_item("user_id").ok()?
 }
 
-// 和第一步一样的逻辑
-async fn submit_second_step(content: &str) -> Result<bool, String> {
-    let url = "http://127.0.0.1:8081/api/step2";
-
-    let input_data = CoverLetterInput {
+// 提交第二步的内容
+async fn send_step_two(content: String) -> Result<(), String> {
+    let input = CoverLetterInput {
         step: 2,
-        content: content.to_string(),
+        content,
         user_id: get_user_id(),
     };
 
-    let req = Request::post(url)
-        .json(&input_data)
-        .map_err(|_| "Failed to create step2".to_string())?
+    let response = Request::post("http://127.0.0.1:8081/api/step2")
+        .json(&input)
+        .map_err(|_| "Failed to create request")?
         .send()
         .await
-        .map_err(|_| "Failed to send step2".to_string())?;
+        .map_err(|_| "Server error")?;
 
-    if req.ok() {
-        Ok(true)
+    if response.ok() {
+        Ok(())
     } else {
-        Ok(false)
+        Err("Please provide more information".to_string())
     }
 }
 
-#[function_component(MessageInput)]
-fn message_input() -> Html {
-    let input_ref = use_node_ref();
-    let navigator = use_navigator().expect("No navigator available for second step");
+#[function_component(ChatInput)]
+fn chat_input() -> Html {
+    let input = use_node_ref();
+    let navigator = use_navigator().expect("Navigator not found");
 
-    let on_submit = {
-        let input_ref = input_ref.clone();
+    let on_send = {
+        let input = input.clone();
         let navigator = navigator.clone();
 
         Callback::from(move |_| {
-            let input = input_ref.cast::<HtmlInputElement>().unwrap();
-            let content = input.value();
-
-            if !content.trim().is_empty() {
+            let text = input.cast::<HtmlInputElement>().unwrap().value();
+            
+            if !text.trim().is_empty() {
                 let navigator = navigator.clone();
+                
                 wasm_bindgen_futures::spawn_local(async move {
-                    match submit_second_step(&content).await {
-                        Ok(true) => {
-                            navigator.push(&Route::ThirdStep);
-                        },
-                        _ => {
-                            web_sys::window().unwrap().alert_with_message("Need more information").ok();
+                    match send_step_two(text).await {
+                        Ok(_) => navigator.push(&Route::ThirdStep),
+                        Err(error) => {
+                            web_sys::window()
+                                .unwrap()
+                                .alert_with_message(&error)
+                                .ok();
                         }
                     }
                 });
             }
-            input.set_value("");
+            
+            input.cast::<HtmlInputElement>().unwrap().set_value("");
         })
     };
 
@@ -80,10 +75,10 @@ fn message_input() -> Html {
                 <input
                     type="text"
                     class="message-input"
-                    placeholder="Please tell us more about your work experience..."
-                    ref={input_ref}
+                    placeholder="Tell us about your work experience..."
+                    ref={input}
                 />
-                <button class="send-button" onclick={on_submit} />
+                <button class="send-button" onclick={on_send} />
             </div>
         </div>
     }
@@ -91,7 +86,16 @@ fn message_input() -> Html {
 
 #[function_component(SecondStepPage)]
 pub fn second_step_page() -> Html {
-    let current_time = Local::now().format("%I:%M %p").to_string();
+    let time = Local::now().format("%I:%M %p").to_string();
+
+    let info_cards = vec![
+        ("Job Title / Position", "What was your job title?"),
+        ("Company Name", "Which company did you work for?"),
+        ("Dates of Employment", "How long did you work there?"),
+        ("Key Responsibilities", "What were your main responsibilities?"),
+        ("Achievements / Impact", "What did you accomplish or improve?"),
+        ("Skills Gained / Developed", "What skills did you develop in this role?")
+    ];
 
     html! {
         <>
@@ -109,7 +113,7 @@ pub fn second_step_page() -> Html {
                                             <img src="assets/avator.png" alt="CoverCraft" class="avatar-image" />
                                         </div>
                                         <span class="bot-name">{ "CoverCraft" }</span>
-                                        <span class="timestamp">{ current_time.clone() }</span>
+                                        <span class="timestamp">{ time }</span>
                                     </div>
                                     <div class="message-bubble">
                                         <p class="message-text">
@@ -120,20 +124,13 @@ pub fn second_step_page() -> Html {
                             </div>
                             <div class="info-cards-container">
                                 {
-                                    vec![
-                                        ("Job Title / Position", "What was your job title?"),
-                                        ("Company Name", "Which company did you work for?"),
-                                        ("Dates of Employment", "How long did you work there?"),
-                                        ("Key Responsibilities", "What were your main responsibilities?"),
-                                        ("Achievements / Impact", "What did you accomplish or improve?"),
-                                        ("Skills Gained / Developed", "What skills did you develop in this role?")
-                                    ].into_iter().enumerate().map(|(index, (title, subtitle))| {
+                                    info_cards.into_iter().enumerate().map(|(index, (title, desc))| {
                                         html! {
                                             <div class={format!("info-card fade-in-card delay-{}", index)}>
-                                                <img src="assets/idea.png" alt="Idea Icon" class="info-icon" />
+                                                <img src="assets/idea.png" alt="Idea" class="info-icon" />
                                                 <div class="card-content">
                                                     <h3 class="card-title">{ title }</h3>
-                                                    <p class="card-subtitle">{ subtitle }</p>
+                                                    <p class="card-subtitle">{ desc }</p>
                                                 </div>
                                             </div>
                                         }
@@ -144,7 +141,7 @@ pub fn second_step_page() -> Html {
                     </div>
                 </div>
             </div>
-            <MessageInput />
+            <ChatInput />
         </>
     }
 }

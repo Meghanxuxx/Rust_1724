@@ -14,32 +14,32 @@ pub fn steps() -> Html {
         ("Summary", Route::FinalStep, 4),
     ];
 
-    let expanded_true = use_state(|| true);
-    let toggle_expanded = {
-        let expanded_true = expanded_true.clone();
-        Callback::from(move |_| expanded_true.set(!*expanded_true))
+    let is_open = use_state(|| true);
+    let on_click = {
+        let is_open = is_open.clone();
+        Callback::from(move |_| is_open.set(!*is_open))
     };
 
     html! {
-        <div class={classes!("section", "steps", if *expanded_true { "expanded" } else { "collapsed" })}>
-            { if *expanded_true {
-                html! { <div class="section-line"></div> }
+        <div class={classes!("section", "steps", if *is_open { "expanded" } else { "collapsed" })}>
+            { if *is_open {
+                html! { <div class="divider"></div> }
             } else {
                 html! {}
             }}
-            <div class="section-header" onclick={toggle_expanded}>
-                <div class="icon-line-wrapper">
+            <div class="section-header" onclick={on_click}>
+                <div class="icon-wrap">
                     <img src="assets/steps.png" alt="Steps Icon" class="section-icon" />
                 </div>
                 <span class="section-title">{ "Steps" }</span>
-                <img src={if *expanded_true { "assets/up.png" } else { "assets/down.png" }} alt="Toggle Arrow" class="section-arrow" />
+                <img src={if *is_open { "assets/up.png" } else { "assets/down.png" }} alt="Toggle Arrow" class="section-arrow" />
             </div>
-            { if *expanded_true {
+            { if *is_open {
                 html! {
                     <div class="section-content">
                         <ul class="section-list">
                             { for steps.iter().map(|(step_name, route, step_id)| {
-                                let active_true = match route {
+                                let is_active = match route {
                                     Route::FirstStep => current_route == "/first-step",
                                     Route::SecondStep => current_route == "/second-step",
                                     Route::ThirdStep => current_route == "/third-step",
@@ -53,7 +53,7 @@ pub fn steps() -> Html {
                                             to={route.clone()} 
                                             classes={classes!("section-link")}
                                         >
-                                            <span class={classes!("section-text", if active_true { "active-text" } else { "" })}>
+                                            <span class={classes!("section-text", if is_active { "active-text" } else { "" })}>
                                                 { step_name }
                                             </span>
                                         </Link<Route>>

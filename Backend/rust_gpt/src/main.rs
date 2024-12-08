@@ -9,120 +9,121 @@ mod types;
 use db::{User, UserStore};
 use types::CoverLetterInput;
 
-struct MyData {
-    users: Mutex<UserStore>
+// Store user data
+struct AppState {
+    user_store: Mutex<UserStore>
 }
 
-// API 端点:
-// - POST /register: 用户注册
-// - POST /login: 用户登录
-// - POST /api/step1: 处理第一步
+// API endpoints:
+// - POST /register: User registration
+// - POST /login: User login
+// - POST /api/step1: first step
 
-// handle register
-/// 检查：
-/// 1. 用户名不能为空
-/// 2. 密码不能为空
-/// 3. 用户名不能重复
+// Register
+/// Checks:
+/// 1. Username cannot be empty
+/// 2. Password cannot be empty
+/// 3. Username cannot be duplicate
 #[post("/register")]
-
-async fn register(user: web::Json<User>, data: web::Data<MyData>) -> HttpResponse {
+async fn register(new_user: web::Json<User>, app_data: web::Data<AppState>) -> HttpResponse {
     // check if username or password is empty
-    if user.name.trim().is_empty() {
+    if new_user.name.trim().is_empty() {
         return HttpResponse::BadRequest().json(json!({
             "message": "Username is empty"
         }));
     }
-    if user.password.trim().is_empty() {
+    if new_user.password.trim().is_empty() {
         return HttpResponse::BadRequest().json(json!({
             "message": "Password is empty"
         }));
     }
 
-    let mut my_store = data.users.lock().unwrap();
+    let mut store = app_data.user_store.lock().unwrap();
 
     // try to add the user
-    if my_store.add_user(user.into_inner()).unwrap_or(false) {
-        HttpResponse::Ok().json(json!({
+    match store.add_user(new_user.into_inner()) {
+        Ok(true) => HttpResponse::Ok().json(json!({
             "message": "Welcome!:D"
-        }))
-    } else {
-        HttpResponse::BadRequest().json(json!({
+        })),
+        _ => HttpResponse::BadRequest().json(json!({
             "message": "Username already exists"
         }))
     }
 }
 
-
 // login stuff
-/// 检查：
-/// 1. 用户名不能为空
-/// 2. 密码不能为空
-/// 3. 用户名和密码必须匹配
-
+/// Checks:
+/// 1. Username cannot be empty
+/// 2. Password cannot be empty
+/// 3. Username and password must match
 #[post("/login")]
-async fn login(user: web::Json<User>, data: web::Data<MyData>) -> HttpResponse {
-    if user.name.trim().is_empty() {
+async fn login(login_data: web::Json<User>, app_data: web::Data<AppState>) -> HttpResponse {
+    if login_data.name.trim().is_empty() {
         return HttpResponse::BadRequest().json(json!({
             "message": "Username is empty"
         }));
     }
-    if user.password.trim().is_empty() {
+    if login_data.password.trim().is_empty() {
         return HttpResponse::BadRequest().json(json!({
             "message": "Password is empty"
         }));
     }
-    let store = data.users.lock().unwrap();
+
+    let store = app_data.user_store.lock().unwrap();
     
-    // check if user exists and pwd is ok
-    if store.verify_login(&user.name, &user.password).unwrap_or(false) {
-        HttpResponse::Ok().json(json!({
+    // check if user exists and password is correct
+    match store.verify_login(&login_data.name, &login_data.password) {
+        Ok(true) => HttpResponse::Ok().json(json!({
             "message": "Login success"
-        }))
-    } else {
-        HttpResponse::BadRequest().json(json!({
+        })),
+        _ => HttpResponse::BadRequest().json(json!({
             "message": "Wrong username or password"
         }))
     }
 }
 
-
-/// 处理Step1
+/// Step1
 ///
-/// 输入格式:
+/// Input format:
 /// ```json
 /// {
 ///     "step": 1,
-///     "content": "用户输入的内容",
-///     "user_id": "用户ID（没登录的时候是Null）"
+///     "content": "User input content",
+///     "user_id": "User ID (Null if not logged in)"
 /// }
 /// ```
 /// 
-/// 目前返回格式:
+/// Current response format:
 /// ```json
 /// {
-///     "message": "成功",
-///     "content": "用户输入的内容"
+///     "message": "Success",
+///     "content": "User input content"
 /// }
 /// ```
 #[post("/api/step1")]
-async fn handle_step1(input: web::Json<CoverLetterInput>) -> HttpResponse {
+async fn handle_step_one(input: web::Json<CoverLetterInput>) -> HttpResponse {
     HttpResponse::Ok().json(json!({
         "message": "Step 1 received successfully",
         "content": input.content
     }))
 }
 
+//step2 and step3 is similar to step1
+
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     // init the user store
-    let store = UserStore::new().expect("x-x");
-    let my_data = web::Data::new(MyData {
-        users: Mutex::new(store)
+    let store = UserStore::new().expect("Failed to create user store");
+    let app_state = web::Data::new(AppState {
+        user_store: Mutex::new(store)
     });
 
-    println!("Server is up at http://localhost:8081 :D");
+    println!("Server running at http://localhost:8081");
+
+    // start server
     HttpServer::new(move || {
-        // CORS 配置，前端地址：http://localhost:8080 或 http://127.0.0.1:8080，因为现在前端和后端用的两个terminal，所以用了cros
+        // CORS config for frontend at http://localhost:8080 or http://127.0.0.1:8080
+        // Using CORS because frontend and backend are running in separate terminals
         let cors = Cors::default()
             .allowed_origin("http://127.0.0.1:8080")
             .allowed_origin("http://localhost:8080")
@@ -131,14 +132,15 @@ async fn main() -> std::io::Result<()> {
             .supports_credentials()
             .max_age(3600);
 
+        // configure app
         App::new()
             .wrap(cors)
-            .app_data(my_data.clone())
+            .app_data(app_state.clone())
             .service(register)
             .service(login)
-            .service(handle_step1)
+            .service(handle_step_one)
     })
     .bind("127.0.0.1:8081")?
     .run()
     .await
-}
+} 

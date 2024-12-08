@@ -5,7 +5,7 @@ use crate::Route;
 #[function_component(History)]
 pub fn history() -> Html {
     // 假装放了点history上来当例子
-    let history_items = vec![
+    let chat_history = vec![
     ("Hacking FBI server with raspberry pi", 1),
     ("COMPsci SICP tutorial course", 2),
     ("Proxy failure troubleshooting", 3),
@@ -17,35 +17,35 @@ pub fn history() -> Html {
 ];
 
 
-    let expanded_true = use_state(|| true);
-    let toggle_expanded = {
-        let expanded_true = expanded_true.clone();
-        Callback::from(move |_| expanded_true.set(!*expanded_true))
+    let is_open = use_state(|| true);
+    let on_click = {
+        let is_open = is_open.clone();
+        Callback::from(move |_| is_open.set(!*is_open))
     };
 
     html! {
-        <div class={classes!("section", "history", if *expanded_true { "expanded" } else { "collapsed" })}>
-            { if *expanded_true {
-                html! { <div class="section-line"></div> }
+        <div class={classes!("section", "history", if *is_open { "open" } else { "closed" })}>
+            { if *is_open {
+                html! { <div class="divider"></div> }
             } else {
                 html! {}
             }}
-            <div class="section-header" onclick={toggle_expanded}>
-                <div class="icon-line-wrapper">
+            <div class="section-header" onclick={on_click}>
+                <div class="icon-wrap">
                     <img src="assets/history.png" alt="History Icon" class="section-icon" />
                 </div>
                 <span class="section-title">{ "History" }</span>
-                <img src={if *expanded_true { "assets/up.png" } else { "assets/down.png" }} alt="Toggle Arrow" class="section-arrow" />
+                <img src={if *is_open { "assets/up.png" } else { "assets/down.png" }} alt="Toggle Arrow" class="section-arrow" />
             </div>
-            { if *expanded_true {
+            { if *is_open {
                 html! {
                     <div class="section-content">
                         <div class="history-content">
                             <ul class="history-list">
-                                { for history_items.iter().map(|(item_name, item_id)| html! {
-                                    <li class="history-item" key={item_id.to_string()}>
-                                        <Link<Route> to={Route::HistoryItem { id: *item_id }} classes="history-link">
-                                            { item_name }
+                                { for chat_history.iter().map(|(name, id)| html! {
+                                    <li class="chat_history" key={id.to_string()}>
+                                        <Link<Route> to={Route::HistoryItem { id: *id }} classes="history-link">
+                                            { name }
                                         </Link<Route>>
                                     </li>
                                 }) }

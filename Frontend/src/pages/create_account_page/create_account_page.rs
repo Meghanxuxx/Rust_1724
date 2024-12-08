@@ -8,126 +8,116 @@ use gloo_net::http::Request;
 use serde_json::json;
 use crate::types::User;
 
-// try to register user
-async fn try_register(user: &User) -> Result<(), String> {
-    let req = Request::post("http://127.0.0.1:8081/register");
+async fn signup(user: &User) -> Result<(), String> {
+    let request = Request::post("http://127.0.0.1:8081/register");
     
-    let req = match req.json(user) {
-        Ok(req) => req,
-        Err(_) => return Err("cant make json".to_string())
+    let request = match request.json(user) {
+        Ok(request) => request,
+        Err(_) => return Err("Data format error".to_string())
     };
 
-    let response = match req.send().await {
-        Ok(r) => r,
-        Err(_) => return Err("server not responding".to_string())
+    let result = match request.send().await {
+        Ok(result) => result,
+        Err(_) => return Err("Server connection failed".to_string())
     };
 
-    if response.ok() {
+    if result.ok() {
         Ok(())
     } else {
-        let text = response.text().await.unwrap_or_default();
+        let text = result.text().await.unwrap_or_default();
         if let Ok(json) = serde_json::from_str::<serde_json::Value>(&text) {
             if let Some(msg) = json.get("message") {
-                if let Some(go_str) = msg.as_str() {
-                    return Err(go_str.to_string());
+                if let Some(message) = msg.as_str() {
+                    return Err(message.to_string());
                 }
             }
         }
-        Err("something went wrong".to_string())
+        Err("Registration Failed".to_string())
     }
 }
 
 #[function_component(CreateAccountPage)]
-pub fn signup_page() -> Html {
-    // refs for all inputs
-    let name_ref = use_node_ref();
-    let pwd_ref = use_node_ref();
-    let age_ref = use_node_ref();
-    let gender_ref = use_node_ref();
-    let error_msg = use_state(|| None::<String>);
+pub fn create_account() -> Html {
+    let username = use_node_ref();
+    let password = use_node_ref();
+    let age = use_node_ref();
+    let gender = use_node_ref();
+    let error_message = use_state(|| None::<String>);
 
-    // html stuff
-    let nav = use_navigator().unwrap();
-    let show_pwd = use_state(|| false);  // for showing/hiding password
+    let navigator = use_navigator().unwrap();
+    let show_password = use_state(|| false);
 
-    // html stuff - toggle password visibility
-    let toggle_pwd = {
-        let show_pwd = show_pwd.clone();
+    let toggle_password = {
+        let show_password = show_password.clone();
         Callback::from(move |_| {
-            show_pwd.set(!*show_pwd);
+            show_password.set(!*show_password);
         })
     };
 
-    // handle form submit
-    let on_submit = {
-        let name_ref = name_ref.clone();
-        let pwd_ref = pwd_ref.clone();
-        let age_ref = age_ref.clone();
-        let gender_ref = gender_ref.clone();
-        let error_msg = error_msg.clone();
-        let nav = nav.clone();
+    let handle_submit = {
+        let username = username.clone();
+        let password = password.clone();
+        let age = age.clone();
+        let gender = gender.clone();
+        let error_message = error_message.clone();
+        let navigator = navigator.clone();
 
         Callback::from(move |e: SubmitEvent| {
             e.prevent_default();
             
-            // get values from inputs
-            let name = name_ref.cast::<HtmlInputElement>().unwrap().value();
-            let pwd = pwd_ref.cast::<HtmlInputElement>().unwrap().value();
+            let name = username.cast::<HtmlInputElement>().unwrap().value();
+            let pass = password.cast::<HtmlInputElement>().unwrap().value();
 
-            // basic validation
             if name.trim().is_empty() {
-                error_msg.set(Some("Username can't be empty.".to_string()));
+                error_message.set(Some("Please enter your user name".to_string()));
                 return;
             }
-            if pwd.trim().is_empty() {
-                error_msg.set(Some("Password can't be empty.".to_string()));
+            if pass.trim().is_empty() {
+                error_message.set(Some("Please enter your password".to_string()));
                 return;
             }
 
-            let age = age_ref
+            let user_age = age
                 .cast::<HtmlInputElement>()
                 .unwrap()
                 .value()
                 .parse::<i32>()
                 .ok();
             
-            let gender = gender_ref
+            let user_gender = gender
                 .cast::<HtmlInputElement>()
                 .unwrap()
                 .value();
 
-            // make new user
-            let user = User {
-                id: Uuid::new_v4().to_string(),  // random id
-                name: name.clone(),
-                password: pwd.clone(),
-                age,  // optional
-                gender: Some(gender),
+            let new_user = User {
+                id: Uuid::new_v4().to_string(),
+                name,
+                password: pass,
+                age: user_age,
+                gender: Some(user_gender),
             };
 
-            let error_msg = error_msg.clone();
-            let nav = nav.clone();
+            let error_message = error_message.clone();
+            let navigator = navigator.clone();
 
-            // try to register
             wasm_bindgen_futures::spawn_local(async move {
-                match try_register(&user).await {
+                match signup(&new_user).await {
                     Ok(_) => {
-                        nav.push(&Route::Login);  // it worked, go to login
+                        navigator.push(&Route::Login);
                     }
-                    Err(e) => {
-                        error_msg.set(Some(e));
+                    Err(msg) => {
+                        error_message.set(Some(msg));
                     }
                 }
             });
         })
     };
 
-    // the actual html
     html! {
-        <div class="account-page-container">
-            <div class="account-left-panel">
-                <div class="account-quote-container">
-                    <div class="account-quote-marks">{"❝"}</div>
+        <div class="account-page">
+            <div class="account-left">
+                <div class="account-quote">
+                    <div class="account-quote-mark">{"❝"}</div>
                     <h1 class="account-quote-text">
                         {"Your Career, One"}
                         <br/>
@@ -136,47 +126,48 @@ pub fn signup_page() -> Html {
                 </div>
             </div>
             
-            <div class="account-right-panel">
-                <Link<Route> to={Route::Home} classes="account-page-logo">
-                    <img src="assets/logo.png" alt="Logo" class="logo-icon" />
-                    <span class="logo-text">{"CoverDraft"}</span>
+            <div class="account-right">
+                <Link<Route> to={Route::Home} classes="account-logo">
+                    <img src="assets/logo.png" alt="Logo" class="account-logo-img" />
+                    <span class="account-logo-text">{"CoverDraft"}</span>
                 </Link<Route>>
                 
-                <div class="account-form-container">
-                    <h2 class="account-form-title">{"Get Started Now"}</h2>
-                    <p class="account-form-subtitle">{"Enter your info to create an account"}</p>
+                <div class="account-form">
+                    <h2 class="account-title">{"Get Started Now"}</h2>
+                    <p class="account-desc">{"Enter your info to create an account"}</p>
                     
-                    if let Some(err) = (*error_msg).clone() {
-                        <div class="error-message">
-                            {err}
+                    if let Some(msg) = (*error_message).clone() {
+                        <div class="account-error">
+                            {msg}
                         </div>
                     }
-                    <form onsubmit={on_submit}>
-                        <div class="account-form-group">
+
+                    <form onsubmit={handle_submit}>
+                        <div class="account-input">
                             <label for="username">{"Username"}</label>
                             <input 
                                 type="text"
                                 id="username"
                                 placeholder="Name"
-                                ref={name_ref}
+                                ref={username}
                             />
                         </div>
                         
-                        <div class="account-form-group">
+                        <div class="account-input">
                             <label for="password">{"Password"}</label>
-                            <div class="password-input-container">
+                            <div class="account-password">
                                 <input 
-                                    type={if *show_pwd { "text" } else { "password" }}
+                                    type={if *show_password { "text" } else { "password" }}
                                     id="password"
                                     placeholder="Password"
-                                    ref={pwd_ref}
+                                    ref={password}
                                 />
                                 <button 
                                     type="button"
-                                    class="toggle-password-btn"
-                                    onclick={toggle_pwd}
+                                    class="account-password-toggle"
+                                    onclick={toggle_password}
                                 >
-                                    if *show_pwd {
+                                    if *show_password {
                                         <img src="assets/eye-off.svg" alt="Hide" />
                                     } else {
                                         <img src="assets/eye.svg" alt="Show" />
@@ -185,32 +176,32 @@ pub fn signup_page() -> Html {
                             </div>
                         </div>
              
-                        <div class="account-form-group">
+                        <div class="account-input">
                             <label for="age">{"Age (Optional)"}</label>
                             <input 
                                 type="text"
                                 id="age"
                                 placeholder="Age"
-                                ref={age_ref}
+                                ref={age}
                             />
                         </div>
                         
-                        <div class="account-form-group">
+                        <div class="account-input">
                             <label for="gender">{"Gender (Optional)"}</label>
                             <input 
                                 type="text"
                                 id="gender"
                                 placeholder="Gender"
-                                ref={gender_ref}
+                                ref={gender}
                             />
                         </div>
                         
-                        <button type="submit" class="account-signup-button">
+                        <button type="submit" class="account-submit">
                             {"Create Account!"}
                         </button>
                     </form>
                 
-                    <div class="account-login-link">
+                    <div class="account-login">
                         <Link<Route> to={Route::Login}>
                             {"Already have an account? Login here!"}
                         </Link<Route>>

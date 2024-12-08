@@ -384,7 +384,7 @@ body {
     font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
-.section-line {
+.divider {
     position: absolute;
     left: 37px;
     top: 28px;
@@ -395,7 +395,7 @@ body {
     background-color: #94A3B8;
 }
 
-.section.collapsed .section-line {
+.section.closed .divider {
     display: none;
 }
 
@@ -585,12 +585,12 @@ body {
     margin: 8px 0 0 25px;
 }
 
-.history-item {
+.chat_history{
     position: relative;
     padding: 4px 0;
 }
 
-.history-item {
+.chat_history{
     margin-bottom: 8px;
 }
 
@@ -674,7 +674,7 @@ body {
 }
 
 .section-item,
-.history-item {
+.chat_history{
     margin-bottom: 8px;
 }
 
@@ -756,7 +756,7 @@ body {
     margin-bottom: 20px;
 }
 
-.section.collapsed .section-line {
+.section.closed .divider {
     display: none;
 }
 
@@ -775,7 +775,7 @@ body {
     margin-right: 8px;
 }
 
-.icon-line-wrapper {
+.icon-wrap {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -1259,13 +1259,13 @@ body {
     border: none;
 }
 
-.account-page-container {
+.account-page {
     display: flex;
     min-height: 100vh;
     height: 100vh;
 }
 
-.account-left-panel {
+.account-left {
     width: 45%;
     min-width: 600px;
     height: 100%;
@@ -1276,7 +1276,7 @@ body {
     padding: 40px 0;
 }
 
-.account-quote-container {
+.account-quote {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1285,7 +1285,7 @@ body {
     margin-top: 35vh;
 }
 
-.account-quote-marks {
+.account-quote-mark {
     width: 110.1px;
     height: 81.9px;
     color: #B2D7FD;
@@ -1304,7 +1304,7 @@ body {
     text-align: center;
 }
 
-.account-right-panel {
+.account-right {
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -1314,7 +1314,7 @@ body {
     overflow-y: auto;
 }
 
-.account-page-logo {
+.account-logo {
     position: absolute;
     top: 40px;
     right: 40px;
@@ -1324,24 +1324,24 @@ body {
     text-decoration: none;
 }
 
-.account-page-logo .logo-icon {
+.account-logo-img {
     width: 40px;
     height: 40px;
 }
 
-.account-page-logo .logo-text {
+.account-logo-text {
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 1.3rem;
     font-weight: 700;
     color: #334B7D;
 }
 
-.account-form-container {
+.account-form {
     width: 472px;
     margin: 200px auto 0;
 }
 
-.account-form-title {
+.account-title {
     font-family: 'DM Sans', sans-serif;
     font-size: 32px;
     font-weight: 700;
@@ -1350,7 +1350,7 @@ body {
     margin-bottom: 8px;
 }
 
-.account-form-subtitle {
+.account-desc {
     font-family: 'DM Sans', sans-serif;
     font-size: 15px;
     line-height: 160%;
@@ -1358,11 +1358,11 @@ body {
     margin-bottom: 32px;
 }
 
-.account-form-group {
+.account-input {
     margin-bottom: 24px;
 }
 
-.account-form-group label {
+.account-input label {
     display: block;
     font-family: 'DM Sans', sans-serif;
     font-size: 13px;
@@ -1372,7 +1372,7 @@ body {
     margin-bottom: 8px;
 }
 
-.account-form-group input {
+.account-input input {
     width: 472px;
     height: 24px;
     padding: 16px;
@@ -1383,7 +1383,40 @@ body {
     color: #333;
 }
 
-.account-signup-button {
+.account-password {
+    position: relative;
+}
+
+.account-password input {
+    width: 472px;
+    padding-right: 40px;
+}
+
+.account-password-toggle {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    padding: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.account-password-toggle img {
+    width: 20px;
+    height: 20px;
+    opacity: 0.6;
+}
+
+.account-password-toggle:hover img {
+    opacity: 1;
+}
+
+.account-submit {
     width: 472px;
     height: 58px;
     background-color: #023F80;
@@ -1398,12 +1431,12 @@ body {
     margin-top: 32px;
 }
 
-.account-login-link {
+.account-login {
     text-align: center;
     margin-top: 24px;
 }
 
-.account-login-link a {
+.account-login a {
     font-family: 'DM Sans', sans-serif;
     font-size: 15px;
     font-weight: 500;
@@ -1412,26 +1445,37 @@ body {
     text-decoration: none;
 }
 
-.account-login-link a:hover {
+.account-login a:hover {
     text-decoration: underline;
 }
 
+.account-error {
+    color: #dc2626;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    margin-bottom: 16px;
+    padding: 8px;
+    background-color: #fef2f2;
+    border-radius: 4px;
+    border: 1px solid #fee2e2;
+}
+
 @media (max-width: 1366px) {
-    .account-left-panel {
+    .account-left {
         width: 650px;
     }
     
-    .account-quote-container {
+    .account-quote {
         margin-top: 30vh;
     }
 
-    .account-form-container {
+    .account-form {
         margin-top: 180px;
     }
 }
 
 @media (min-width: 1920px) {
-    .account-quote-container {
+    .account-quote {
         margin-top: 40vh;
     }
     
@@ -1439,109 +1483,8 @@ body {
         font-size: 82px;
     }
 
-    .account-form-container {
-        margin-top: 440px;
-    }
-}
-
-.password-input-container {
-    position: relative;
-    display: flex;
-    align-items: center;
-}
-
-.password-input-container input {
-    width: 100%;
-    padding-right: 40px;
-}
-
-.toggle-password-btn {
-    position: absolute;
-    right: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    padding: 4px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.toggle-password-btn img {
-    width: 20px;
-    height: 20px;
-    opacity: 0.6;
-}
-
-.toggle-password-btn:hover img {
-    opacity: 1;
-}
-
-.account-register-section {
-    text-align: center;
-    margin-top: 24px;
-}
-
-.account-register-text {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 15px;
-    color: #1A1A1A;
-    margin-bottom: 12px;
-}
-
-.account-register-button {
-    display: inline-block;
-    width: 100%;
-    padding: 16px;
-    background: #FFFFFF;
-    border: 1px solid #023F80;
-    border-radius: 8px;
-    color: #023F80;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 15px;
-    font-weight: 700;
-    text-decoration: none;
-    text-align: center;
-    transition: background-color 0.3s ease;
-}
-
-.account-register-button:hover {
-    background-color: #F5F8FF;
-}
-
-.account-about-link {
-    text-align: center;
-    margin-top: 40px;
-    padding-bottom: 20px;
-}
-
-.account-about-link a {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 15px;
-    color: #747577;
-    text-decoration: none;
-}
-
-.account-about-link a:hover {
-    text-decoration: underline;
-}
-
-.account-form-container {
-    width: 472px;
-    margin: 200px auto 0;
-}
-
-@media (max-width: 1366px) {
-    .account-form-container {
-        margin-top: 180px;
-    }
-}
-
-@media (min-width: 1920px) {
-    .account-form-container {
-        margin-top: 240px;
+    .account-form {
+        margin-top: 340px;
     }
 }
 
@@ -1669,73 +1612,4 @@ body {
 
 .login-about-link a:hover {
     text-decoration: underline;
-}
-
-@media (max-width: 1366px) {
-    .login-form-container {
-        margin-top: 180px;
-    }
-}
-
-@media (min-width: 1920px) {
-    .login-form-container {
-        margin-top: 240px;
-    }
-}
-
-.password-input-container .toggle-password-btn {
-    top: 50%;
-    transform: translateY(-50%);
-    height: 48px;
-    display: flex;
-    align-items: center;
-}
-
-
-.final-step-container {
-    padding: 120px 0 0 30px;
-    max-width: calc(100vw - 300px);
-}
-
-.final-step-page {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-}
-
-.final-step-page .chat-container {
-    width: 100%;
-}
-
-.final-step-page .chat-message {
-    display: flex;
-    flex-direction: column;
-}
-
-.action-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin-top: 2rem;
-}
-
-.action-button {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.75rem 1.5rem;
-    border: none;
-    border-radius: 8px;
-    background-color: #f0f2f5;
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
-
-.action-button:hover {
-    background-color: #e4e6e9;
-}
-
-.button-icon {
-    width: 20px;
-    height: 20px;
 }
