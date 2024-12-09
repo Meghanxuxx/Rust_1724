@@ -9,11 +9,6 @@ pub struct HeaderProps {
 
 #[function_component(Header)]
 pub fn header(props: &HeaderProps) -> Html {
-
-    let about_us_onclick = Callback::from(|_| {
-        // TODO: AboutUs功能
-    });
-
     html! {
         <header class={classes!("header", if props.show_line { "with-line" } else { "no-line" })}>
             <nav class="navbar">
@@ -25,7 +20,7 @@ pub fn header(props: &HeaderProps) -> Html {
                 </Link<Route>>
                 <ul class="nav-links">
                     <li><Link<Route> to={Route::Login} classes="nav-link">{"Sign In"}</Link<Route>></li>
-                    <li><a href="#about" class="nav-link" onclick={about_us_onclick}>{"About Us"}</a></li>
+                    <li><Link<Route> to={Route::AboutUs} classes="nav-link">{"About Us"}</Link<Route>></li>
                     <li>
                         <Link<Route> to={Route::CreateAccount} classes="btn-create-account">
                             {"Create account"}

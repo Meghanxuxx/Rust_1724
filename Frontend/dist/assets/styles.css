@@ -1613,3 +1613,153 @@ body {
 .login-about-link a:hover {
     text-decoration: underline;
 }
+
+.page {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    min-height: 100vh;
+    width: 100%;
+}
+
+.team-page {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin: 0 auto;
+    padding: 6rem 2rem;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    flex: 1;
+    min-height: calc(100vh - 72px);
+}
+
+.team-content {
+    flex: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.team-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 48px;
+    color: #334B7D;
+    margin-top: 60px;
+    margin-bottom: 16px;
+}
+
+.team-desc {
+    font-size: clamp(12px, 2vw, 24px);
+    font-weight: 600;
+    line-height: 1.5;
+    color: #344C7D;
+    margin-top: 1rem;
+    margin-bottom: 64px;
+}
+
+.team-members {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    margin: 0 auto;
+    max-width: 900px;
+    padding: 0 20px;
+}
+
+.member-box {
+    background: #FFFFFF;
+    border-radius: 24px;
+    padding: 32px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.member-box:hover {
+    transform: translateY(-8px);
+}
+
+.member-pic {
+    width: 160px;
+    height: 160px;
+    margin: 0 auto 24px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #334B7D;
+}
+
+.pic {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.member-name {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: #334B7D;
+    margin-bottom: 8px;
+}
+
+.member-mail {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 16px;
+    color: #475569;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.member-mail:hover {
+    color: #334B7D;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .team-members {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 32px;
+    }
+}
+
+@media (max-width: 640px) {
+    .team-members {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .team-title {
+        font-size: 36px;
+    }
+
+    .team-desc {
+        font-size: 16px;
+        margin-bottom: 48px;
+    }
+
+    .member-pic {
+        width: 120px;
+        height: 120px;
+    }
+}
+
+@media (min-width: 1920px) {
+    .team-page {
+        padding: 12rem 2rem;
+    }
+    
+    .team-content {
+        padding: 120px 20px;
+    }
+    
+    .team-title {
+        margin-top: 100px;
+    }
+
+    .team-members {
+        max-width: 1200px;
+    }
+}

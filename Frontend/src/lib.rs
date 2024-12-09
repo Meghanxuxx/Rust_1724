@@ -14,6 +14,7 @@ use pages::third_step_page::ThirdStepPage;
 use pages::create_account_page::CreateAccountPage;
 use pages::login_page::LoginPage;
 use pages::final_step_page::FinalStepPage;
+use pages::about_us::AboutUs;
 
 #[derive(Routable, PartialEq, Clone, Debug)]
 pub enum Route {
@@ -35,6 +36,8 @@ pub enum Route {
     HistoryItem { id: usize },
     #[at("/final-step")]
     FinalStep,
+    #[at("/about-us")]
+    AboutUs,
     #[not_found]
     #[at("/404")]
     NotFound,
@@ -82,6 +85,9 @@ fn switch(routes: Route) -> Html {
         },
         Route::FinalStep => html! {
             <FinalStepPage />
+        },
+        Route::AboutUs => html! {
+            <AboutUs />
         },
         Route::NotFound => html! { <p>{ "Page Not Found x_x" }</p> },
     }
