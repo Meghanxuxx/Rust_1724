@@ -830,7 +830,6 @@ body {
     padding: 16px;
     flex: 1;
 }
-
 @media (min-width: 1601px) {
     .content-title {
         font-size: 100px;
@@ -1762,4 +1761,21 @@ body {
     .team-members {
         max-width: 1200px;
     }
+}
+
+.final-step-container {
+    padding: 120px 0 0 30px;
+    max-width: calc(100vw - 300px);
+}
+
+.final-step-container .buttons-container {
+    gap: 16px;
+    margin-top: 40px;
+    margin-left: 15px;
+    padding: 0 40px;
+    animation: fadeIn 0.8s ease-out forwards;
+}
+
+.final-step-container .continue-button {
+    min-width: 200px;
 }

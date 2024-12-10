@@ -6,6 +6,11 @@ use crate::Route;
 
 #[function_component(Sidebar)]
 pub fn sidebar() -> Html {
+    let username = web_sys::window()
+        .and_then(|window| window.local_storage().ok().flatten())
+        .and_then(|storage| storage.get_item("user_name").ok().flatten())
+        .unwrap_or_else(|| String::from("User"));
+
     html! {
         <aside class="sidebar">
             <div class="sidebar-content">
@@ -34,7 +39,7 @@ pub fn sidebar() -> Html {
                 <div class="user-profile">
                     <div class="user-info">
                         <div class="user-avatar"></div>
-                        <span class="user-name">{ "User" }</span>
+                        <span class="user-name">{ username }</span>
                     </div>
                     <button class="settings-btn">
                         <img src="assets/setting.png" alt="Settings Icon" class="settings-icon" />

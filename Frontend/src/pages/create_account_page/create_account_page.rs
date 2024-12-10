@@ -36,6 +36,14 @@ async fn signup(user: &User) -> Result<(), String> {
     }
 }
 
+async fn save_user_to_storage(username: &str) {
+    if let Some(window) = web_sys::window() {
+        if let Ok(Some(storage)) = window.local_storage() {
+            storage.set_item("user_name", username).ok();
+        }
+    }
+}
+
 #[function_component(CreateAccountPage)]
 pub fn create_account() -> Html {
     let username = use_node_ref();
@@ -103,7 +111,8 @@ pub fn create_account() -> Html {
             wasm_bindgen_futures::spawn_local(async move {
                 match signup(&new_user).await {
                     Ok(_) => {
-                        navigator.push(&Route::Login);
+                        save_user_to_storage(&new_user.name).await;
+                        navigator.push(&Route::FirstStep);
                     }
                     Err(msg) => {
                         error_message.set(Some(msg));
