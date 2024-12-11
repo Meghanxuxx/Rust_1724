@@ -23,22 +23,78 @@ These barriers to job searching, caused by limited resources and a lack of knowl
 
 Therefore combining our own needs as well as those of our target group, the goal of our project is to develop an AI-powered platform designed to increase the competitiveness of users in their job search by producing customized cover letters that meet linguistic and professional standards. Our tool will provide native-level language assistance and industry-appropriate expressions that are customized to each user's unique experience and needs. And with this solution, we hope to reduce the barriers faced by newcomers and marginalized groups, increase their employability, promote economic integration, and contribute to a more inclusive workforce. This AI-driven approach not only meets an unfilled need, but also puts us at the forefront of the market as we scale to support an increasingly globalized and diverse talent pool.
 
+# Objective
 
+The aim of this project is to develop a website integrated with Large Language Models (LLMs) in Rust to assist users in creating professional and customized cover letters, thereby enhancing their job search prospects. The project involves optimizing prompts to improve tool performance and leveraging frameworks to build an interactive, user-friendly website interface.
 
+The project consists of several milestones, each of which is described in detail below.
 
+---
 
-The names, student numbers, and the preferred email addresses of all team members. Email messages requesting clarification may be sent to the team, so make sure that these emails can be successfully delivered and read.
+## Front-End Development
 
-Motivation: What motivated your team to spend time on this project? An excellent project idea is satisfying and fun to work on, and fills a gap that may not be easily found in the Rust ecosystem.
+### UI/UX Design
 
-Objectives: What are the objectives of this project?
+Creating an effective full-stack application requires a thoughtful design that takes user habits into account. To lead the development process, we need to prepare a comprehensive UI/UX design document. This document should ensure the interface is intuitive, accessible, and user-friendly. It will outline how users interact with the website and incorporate all possible functionalities, offering a clear roadmap for implementation.
 
-Features: What are the main features offered by the final project deliverable?
+### Website Pages
 
-User’s (or Developer’s) Guide: How does a user — or developer, if the project is a crate — use each of the main features in the project deliverable?
+Based on the UI/UX design, we will implement the website pages in three key stages:
 
-Reproducibility Guide: What are the commands needed to set up the runtime environment, if any, and to build the project, so that its features can be used by a user or a developer? Note: The instructor will follow the steps you have included in this section, step-by-step, with no deviation. The instructor has access to a Ubuntu Linux server and a macOS Sonoma laptop computer.
+1. **User Initialization**:
+    
+    Our system will handle personal and private user data. To ensure data security, users must be able to create personal accounts, which will store their chat history and prevent data leakage. This phase includes developing pages for user registration, login, and a personal dashboard.
+    
+2. **Communication Pages**:
+    
+    Users will need a space to input essential information, such as job descriptions, desired positions, work experience, and educational background. These pages will facilitate the collection of all relevant data needed to generate tailored cover letters.
+    
+3. **History Display**:
+    
+    Recognizing that users may apply for multiple positions and use our tool repeatedly, we plan to provide functionality for reviewing past cover letters. This includes designing pages for accessing and displaying users' history.
+    
 
-Contributions by each team member: What were the individual contributions by each member in the team?
+---
 
-Lessons learned and concluding remarks: Write about any lessons the team has learned throughout the project and concluding remarks, if any.
+## Back-End Development
+
+The back-end will support all front-end functionalities and consists of the following core sections:
+
+### Core Post and Get Operations
+
+The back-end must enable real-time communication between the front-end and the server. This involves processing user inputs and delivering outputs in real time. It will ensure interactive, real-time functionality for the chatting component of the website.
+
+### Prompt Engineering and Optimization
+
+Generating high-quality, customized cover letters relies heavily on prompt design. Since we intend to use a mature LLM API, optimizing prompts is essential to achieving high performance. This aspect of the back-end involves designing and refining prompts to maximize output quality.
+
+### LLM API Integration
+
+The back-end must integrate the LLM API with optimized prompts to generate personalized cover letters based on the user’s input. Successfully handling input data and composing accurate, professional output to the front-end is a critical milestone for the project.
+
+### Data Storage
+
+To enable users to review their past communications, the back-end will include functionality for securely storing chat histories associated with each user account.
+
+### Back-End Milestones Conclusion:
+
+1. Develop and optimize prompts to achieve high-performance results.
+2. Generate high-quality output using the LLM API and optimized prompts.
+3. Enable real-time communication between users and the model to tailor outputs to user expectations.
+4. Implement secure storage for user chat histories to allow for later review.
+
+---
+
+## Project Objective Milestones Conclusion
+
+The overall development of the project can be divided into the following key milestones:
+
+1. **UI/UX Design**: Create and iteratively improve the design based on user feedback.
+2. **Rust Front-End Framework**: Develop the front-end using a Rust framework.
+3. **Front-End and Back-End API Interface**: Build a real-time interface for communication between the front-end and back-end.
+4. **LLM API Integration**: Successfully incorporate the LLM API with optimized prompts.
+5. **Prompt Engineering and Optimization**: Design and refine prompts for high-quality outputs.
+6. **Performance Optimization and Testing**: Test the system extensively and make necessary optimizations to ensure optimal performance.
+
+---
+
