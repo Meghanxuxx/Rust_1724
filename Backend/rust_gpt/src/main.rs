@@ -5,13 +5,15 @@ mod openai;
 mod steps;
 mod types;
 
-use actix_web::{web, App, HttpServer};
+use actix_web::{http, web, App, HttpServer};
 use config::AppConfig;
 use std::sync::Mutex;
 use std::collections::HashMap;
 use db::UserStore;
 use account::{login::login, register::register};
 use steps::handler::{handle_step_one, handle_step_two, handle_step_three};
+use crate::http::header::CONTENT_TYPE;
+use actix_cors::Cors;
 
 // Store user data and per-user step content
 struct AppState {
@@ -46,6 +48,14 @@ async fn main() -> std::io::Result<()> {
     // Start the server
     HttpServer::new(move || {
         App::new()
+            .wrap(
+            Cors::default()
+                .allowed_origin("http://127.0.0.1:8080")
+                .allowed_origin("http://localhost:8000") // Replace with your front-end origin
+                .allowed_methods(vec!["GET", "POST"])
+                .allowed_headers(vec![CONTENT_TYPE])
+                .max_age(3600),
+            )
             .app_data(app_state.clone())
             .service(register)
             .service(login)

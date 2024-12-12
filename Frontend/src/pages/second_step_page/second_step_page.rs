@@ -20,20 +20,25 @@ async fn send_step_two(content: String) -> Result<(), String> {
     let input = CoverLetterInput {
         step: 2,
         content,
-        user_id: get_user_id(),
+        user_id: Some("12345".to_string()),
     };
 
     let response = Request::post("http://127.0.0.1:8081/api/step2")
+        .header("Content-Type", "application/json")
         .json(&input)
-        .map_err(|_| "Failed to create request")?
+        .map_err(|err| format!("Failed to create request: {}", err))?
         .send()
         .await
-        .map_err(|_| "Server error")?;
+        .map_err(|err| format!("Failed to send request: {}", err))?;
+
+    // Log the status code and response body
+    let status = response.status();
+    let text = response.text().await.unwrap_or_else(|_| "Failed to read response text".to_string());
 
     if response.ok() {
         Ok(())
     } else {
-        Err("Please provide more information".to_string())
+        Err(format!("Server returned an error: {}", text))
     }
 }
 
