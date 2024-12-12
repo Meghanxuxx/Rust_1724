@@ -1,0 +1,9 @@
+[openai]
+model = "gpt-4o-mini"
+max_tokens = 150
+system_prompt_file = "src/prompt/agent_background.txt"
+api_url = "https://api.openai.com/v1/chat/completions"
+
+[server]
+port = 8081
+host = "127.0.0.1"
