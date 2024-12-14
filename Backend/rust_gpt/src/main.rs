@@ -11,7 +11,7 @@ use std::sync::Mutex;
 use std::collections::HashMap;
 use db::UserStore;
 use account::{login::login, register::register};
-use steps::handler::{handle_step_one, handle_step_two, handle_step_three};
+use steps::handler::{handle_step_one, handle_step_two, handle_step_three, handle_final_step};
 use crate::http::header::CONTENT_TYPE;
 use actix_cors::Cors;
 
@@ -62,6 +62,7 @@ async fn main() -> std::io::Result<()> {
             .service(handle_step_one)
             .service(handle_step_two)
             .service(handle_step_three)
+            .service(handle_final_step)
     })
     .bind(format!("{}:{}", server_host, server_port))?
     .run()
