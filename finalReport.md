@@ -59,7 +59,7 @@ The overall development of the project can be divided into the following key mil
 
 ---
 
-# User’s Guide
+## User’s Guide
 
 1. Sign up an account for use and log in to the system.
 
@@ -74,7 +74,7 @@ The overall development of the project can be divided into the following key mil
 
 We provide one test case for the user to experience.
 
-## Test case
+### Test case
 
 **Step 1**: I am Leo. I graduated from the University of Toronto with a master degree in the Electrical and Computer Engineering. I am proficient in Python, Rust, C++, and familiar with JavaScript, TypeScript and Verilog. I won the hackathon competition last year with a project about the to-do list finished by JavaScript and Python.I interned at Intel for four months as a software engineer intern working in the project about the deployment of cloud during my senior year. I interned at Yelp for six months and finished a project about building a website and doing data analytics to analyze customers habits there during my master’s first year.
 
@@ -105,7 +105,7 @@ People shop on Google more than a billion times a day - and the Commerce team is
 **Step 3**: Please write it in a formal and confident tone around 300 words. I hope that it could exhibit my professional skills well.
 
 ---
-# Contribution
+## Contribution
 
 UI/UX design: Huilin Xu
 
