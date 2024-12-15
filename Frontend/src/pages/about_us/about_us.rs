@@ -13,7 +13,7 @@ pub fn about_us() -> Html {
     let developers = vec![
         Developer {
             name: "Xian Wu",
-            email: "dev1@mail.utoronto.ca",
+            email: "amandaxian.wu@mail.utoronto.ca",
             avatar: "assets/xianwu.jpg"
         },
         Developer {
