@@ -26,8 +26,6 @@ fn get_history_text() -> Result<String, String> {
         .get_item("history")
         .map_err(|err| format!("Failed to retrieve history from local storage: {:?}", err))?
         .ok_or("No history found in local storage".to_string())?;
-
-    // parse the history result and query
     
     Ok(history_text)
 }
@@ -36,35 +34,6 @@ fn get_history_text() -> Result<String, String> {
 pub fn history_page() -> Html {
     let history = get_history_text();
 
-    // html! {
-    //     <div class="page-container">
-    //         <Header show_line={false} />
-    //         // <p>{}</p>
-    //         <div class="app-content">
-    //             <Sidebar />
-
-    //             <div class="history-page-header">
-    //                 <div class="content-wrapper">
-
-    //                 <div class="avatar">
-    //                     <img src="assets/avator.png" alt="CoverCraft" class="avatar-image" />
-    //                 </div>
-    //                     <h1 class = "title">{ "History Page" }</h1>
-
-    //                     <div class="history-page">
-    //                     <p>{ history.unwrap_or("No history".to_string()) }</p>
-    //                     </div>
-    //                 </div>
-    //             </div>
-
-    //             // <div class="history-page">
-    //             //     <p>{ history.unwrap_or("No history".to_string()) }</p>
-    //             // </div>
-    //         </div>
-    //     </div>
-    // }
-   
-
     html! {
         <div class="page">
             <Header show_line={false} />
@@ -72,14 +41,14 @@ pub fn history_page() -> Html {
                 <Sidebar />
                 <div class="content-wrapper">
                     <div class="final-step-container">
-                        <h1 class="title">{"Your Cover Letter is Ready!"}</h1>
+                        <h1 class="title">{"Cover Letter History"}</h1>
                         
                         <div class="chat-container fade-in">
                             <div class="chat-message">
                                 <div class="message-header">
-                                    // <div class="avatar">
-                                        // <img src="assets/avator.png" alt="CoverCraft" class="avatar-image" />
-                                    // </div>
+                                    <div class="avatar">
+                                        <img src="assets/avator.png" alt="CoverCraft" class="avatar-image" />
+                                    </div>
                                     <span class="bot-name">{ "CoverCraft" }</span>
                                 </div>
                                 <div class="message-bubble">

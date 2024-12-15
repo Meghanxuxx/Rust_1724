@@ -1841,3 +1841,26 @@ body {
     color: white;
     border: none;
 }
+
+
+.history-page-header {
+    text-align: center;
+    margin: 10px 0 10px; /* Add more space at the top */
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.history-page-header h1 {
+    font-size: 24px;
+    margin: 0;
+}
+
+.history-page {
+    margin-top: 20px;
+    line-height: 1.6;
+}
+
+.history-page p {
+    font-size: 16px;
+    color: #555;
+}
