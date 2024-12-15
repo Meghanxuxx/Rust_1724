@@ -93,12 +93,12 @@ pub fn second_step_page() -> Html {
     let time = Local::now().format("%I:%M %p").to_string();
 
     let info_cards = vec![
-        ("Job Title / Position", "What was your job title?"),
-        ("Company Name", "Which company did you work for?"),
-        ("Dates of Employment", "How long did you work there?"),
-        ("Key Responsibilities", "What were your main responsibilities?"),
-        ("Achievements / Impact", "What did you accomplish or improve?"),
-        ("Skills Gained / Developed", "What skills did you develop in this role?")
+        ("Job Title / Position", "Could you specify the job title or position you're applying for?"),
+        ("Company Name", "What's the name of the company you're applying to?"),
+        ("Dates of Employment", "When are you available to start working?"),
+        ("Key Responsibilities", "What are the primary duties or responsibilities associated with this role?"),
+        ("Requirements", "What qualifications, experience, or education are required for this role?"),
+        ("Skills", "Are there any additional skills or attributes (e.g., teamwork, leadership) that are valuable for this role?")
     ];
 
     html! {

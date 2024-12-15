@@ -104,7 +104,6 @@ The main features are organized into three key aspects:
 
 We also provide a test case for users to experience the system functionality.
 
-##
 
 ### Test case
 
