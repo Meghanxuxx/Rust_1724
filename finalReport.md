@@ -84,15 +84,16 @@ The main features are organized into three key aspects:
 ### Step 1: Create an Account
 
 - Sign up for a new account and log in to access the system from the home page.
-![home page](image-2.png)
-![step1](image.png)
+<img width="1412" alt="image" src="https://github.com/user-attachments/assets/7e9e3ad5-0dd1-4ad1-9374-13abdd059925" />
+
+<img width="1407" alt="image" src="https://github.com/user-attachments/assets/8eb15343-d3ac-4552-b32b-c984dfc37d3b" />
 
 ### Step 2: Input Information
 
 - Follow the instructions in the left-hand column.
 - Provide answers to the hint questions in the right-hand section of Step 1.
 
-![step2](image-1.png)
+<img width="1406" alt="image" src="https://github.com/user-attachments/assets/d2ffb292-c652-4206-b61a-8674e982f626" />
 
 ### Step 3: Complete Additional Steps
 
@@ -101,7 +102,8 @@ The main features are organized into three key aspects:
 ### Step 4: Generate and Review
 
 - View the fully generated cover letter on the summary page.
-![summary result](image-3.png)
+<img width="1406" alt="image" src="https://github.com/user-attachments/assets/3b0c238b-05c8-49b5-ba78-297370196d49" />
+
 
 We also provide a test case for users to experience the system functionality.
 
