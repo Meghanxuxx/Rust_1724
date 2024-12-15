@@ -79,7 +79,7 @@ fn chat_input() -> Html {
                 <input
                     type="text"
                     class="message-input"
-                    placeholder="Tell us about your work experience..."
+                    placeholder="Tell us about the position you are applying for..."
                     ref={input}
                 />
                 <button class="send-button" onclick={on_send} />
@@ -93,12 +93,12 @@ pub fn second_step_page() -> Html {
     let time = Local::now().format("%I:%M %p").to_string();
 
     let info_cards = vec![
-        ("Job Title / Position", "Could you specify the job title or position you're applying for?"),
-        ("Company Name", "What's the name of the company you're applying to?"),
+        ("Job Title / Position", "Could you specify the position?"),
+        ("Company Name", "What's the name of the company?"),
         ("Dates of Employment", "When are you available to start working?"),
-        ("Key Responsibilities", "What are the primary duties or responsibilities associated with this role?"),
-        ("Requirements", "What qualifications, experience, or education are required for this role?"),
-        ("Skills", "Are there any additional skills or attributes (e.g., teamwork, leadership) that are valuable for this role?")
+        ("Key Responsibilities", "What are the responsibilities of the role?"),
+        ("Requirements", "What qualifications are required?"),
+        ("Skills", "Any other attributes valuable for this role?")
     ];
 
     html! {
