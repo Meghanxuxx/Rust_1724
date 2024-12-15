@@ -44,6 +44,7 @@ async fn save_user_to_storage(username: &str) {
         if let Ok(Some(storage)) = window.local_storage() {
             storage.set_item("user_name", username).ok();
             storage.set_item("user_id", username).ok();
+            // storage.set_item("history", "[]").ok();
         }
     }
 }
