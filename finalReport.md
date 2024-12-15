@@ -36,7 +36,7 @@ Given the project's features, we decided to use a website as our platform, and f
 2. **Real-time feedback**: The front-end shows instant suggestions and reminders as users fill in their personal information, such as highlighting important skills, pointing out missing information, and providing interactive feedback to help adjust the length and tone of the writing. (Will be discussed later in feature section)
 3. **Flexible component design**: The front-end framework is built in a way that allows for reusable and expandable components, so new features can be added easily in the future while keeping the code organized and easy to maintain.
 
-![Our Front-End Design](https://github.com/Meghanxuxx/Rust_1724/blob/prompt/Frontend/static/UI.jpg?raw=true)
+![Our Front-End Design](https://github.com/Meghanxuxx/Rust_1724/blob/report/Frontend/static/UI.jpg?raw=true)
 
 ### 2. Back-End Development
 
