@@ -1,12 +1,26 @@
 use yew::prelude::*;
 use yew_router::prelude::*;
 use crate::Route;
+use sha2::{Sha256, Digest};
+use rand::Rng;
+use web_sys::window;
+
+fn generate_encrypted_user_id() -> String {
+    let random_id: u32 = rand::thread_rng().gen();
+    let mut hasher = Sha256::new();
+    hasher.update(random_id.to_string());
+    format!("{:x}", hasher.finalize())
+}
 
 #[function_component(ContentSection)]
 pub fn content_section() -> Html {
     let navigator = use_navigator().unwrap();
 
     let get_cover_letter_onclick = Callback::from(move |_| {
+        let user_id = generate_encrypted_user_id();
+        if let Some(storage) = window().and_then(|w| w.local_storage().ok().flatten()) {
+            storage.set_item("user_id", &user_id).unwrap();
+        }
         navigator.push(&Route::FirstStep);
     });
 

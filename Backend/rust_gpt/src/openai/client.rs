@@ -45,10 +45,11 @@ pub async fn get_gpt_response(prompt: &str, config: &AppConfig) -> Result<String
 
     // Parse the response JSON
     let response_json: serde_json::Value = response.json().await?;
-    println!("Raw response JSON: {:?}", response_json);
+    eprintln!("Raw response JSON: {:?}", response_json);
     if let Some(reply) = response_json["choices"][0]["message"]["content"].as_str() {
         Ok(reply.to_string())
     } else {
+        eprintln!("Unexpected response format: {:?}", response_json);
         Err("Unexpected response format".into())
     }
 }

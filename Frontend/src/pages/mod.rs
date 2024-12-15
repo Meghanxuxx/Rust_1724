@@ -6,3 +6,4 @@ pub mod create_account_page;
 pub mod login_page;
 pub mod final_step_page;
 pub mod about_us;
+pub mod history_page;

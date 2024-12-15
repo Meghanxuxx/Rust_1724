@@ -15,6 +15,7 @@ use pages::create_account_page::CreateAccountPage;
 use pages::login_page::LoginPage;
 use pages::final_step_page::FinalStepPage;
 use pages::about_us::AboutUs;
+use pages::history_page::HistoryItemPage;
 
 #[derive(Routable, PartialEq, Clone, Debug)]
 pub enum Route {
@@ -81,7 +82,8 @@ fn switch(routes: Route) -> Html {
             <p>{ format!("Step page with id: {}", id) }</p>
         },
         Route::HistoryItem { id } => html! {
-            <p>{ format!("History item page with id: {}", id) }</p>
+            <HistoryItemPage />
+            // <p>{ format!("History item page with id: {}", id) }</p>
         },
         Route::FinalStep => html! {
             <FinalStepPage />
