@@ -1,6 +1,6 @@
 [openai]
 model = "gpt-4o-mini"
-max_tokens = 150
+max_tokens = 5000
 system_prompt_file = "src/prompt/agent_background.txt"
 api_url = "https://api.openai.com/v1/chat/completions"
 

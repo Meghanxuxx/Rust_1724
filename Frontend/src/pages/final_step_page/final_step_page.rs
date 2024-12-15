@@ -1,33 +1,47 @@
-use serde_json::error;
+
 use yew::prelude::*;
 use crate::components::{Sidebar, Header};
 use chrono::Local;
 use yew_router::prelude::*;
 use crate::Route;
-use web_sys::AnimationEvent;
 use wasm_bindgen_futures::spawn_local;
 use gloo_net::http::Request;
-use web_sys::console;
+use crate::types::CoverLetterInput;
+use serde_json::Value;
 
-// Fetch the combined response from the backend
-async fn fetch_final_response() -> Result<String, gloo_net::Error> {
+fn get_user_id() -> Option<String> {
+    let window = web_sys::window()?;
+    let storage = window.local_storage().ok()??;
+    storage.get_item("user_id").ok()?
+}
 
-    let response = Request::get("http://127.0.0.1:8081/api/final-step")
+async fn fetch_final_response() -> Result<String, String> {
+    let input = CoverLetterInput {
+        step: 4,
+        content: "".to_string(),
+        user_id: get_user_id(),
+    };
+
+    let response = Request::post("http://127.0.0.1:8081/api/final-step")
+        .header("Content-Type", "application/json")
+        .json(&input)
+        .map_err(|err| format!("Failed to create request: {}", err))?
         .send()
-        .await?
-        .text()
-        .await?;
+        .await
+        .map_err(|err| format!("Failed to send request: {}", err))?;
 
-    match serde_json::from_str::<serde_json::Value>(&response) {
-        Ok(parsed) => {
-            if let Some(content) = parsed.get("content").and_then(|c| c.as_str()) {
-                Ok(content.to_string())
-            } else {
-                Ok("Invalid response format!".to_string())
-            }
-        }
-        Err(error) => Ok(format!("Failed to parse server response {}", error)),
-    }
+    // Log the status code and response body
+    let response_body = response.text().await.unwrap_or_else(|_| "Failed to read response text".to_string());
+    let parsed_json: Value = serde_json::from_str(&response_body)
+        .map_err(|err| format!("Failed to parse JSON: {}", err))?;
+
+    // Extract the "content" field
+    let content = parsed_json
+        .get("content")
+        .ok_or("Failed to extract 'content' field as a string")?;
+
+    let formatted_text = content.to_string().replace("\\n", "\n");
+    Ok(formatted_text) // Return the response text in the `Ok` case
 }
 
 #[function_component(FinalStepPage)]
@@ -37,7 +51,6 @@ pub fn final_step_page() -> Html {
     let current_time = Local::now().format("%I:%M %p").to_string();
     let generated_text = use_state(|| "Loading...".to_string());
 
-    let user_id = Some("12345".to_string());
     // Fetch the backend response asynchronously
     {
         let generated_text_clone = generated_text.clone();
@@ -99,9 +112,6 @@ pub fn final_step_page() -> Html {
         </div>
     }
 }
-
-
-
 
 // #[function_component(FinalStepPage)]
 // pub fn final_step_page() -> Html {

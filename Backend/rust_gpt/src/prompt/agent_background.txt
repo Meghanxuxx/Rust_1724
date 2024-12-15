@@ -107,3 +107,6 @@ The thinking process must be contained within code block with `thinking` header 
 
 The ultimate goal of having this cover letter protocol is to enable agent to produce insightful, structured, logical, impressive cover letter which matches the job position descriptions and with personal characteristics. The whole comprehensive thinking process ensures the Agent outputs stem from genuine understanding rather than superficial analysis.
 
+### What the final result I want
+
+A well structured cover letter only!
