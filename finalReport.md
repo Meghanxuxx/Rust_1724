@@ -58,21 +58,53 @@ The overall development of the project can be divided into the following key mil
 6. **Performance Optimization and Testing**: Test the system extensively and make necessary optimizations to ensure optimal performance.
 
 ---
+# Features
 
-## User’s Guide
+The main features are organized into three key aspects:
 
-1. Sign up an account for use and log in to the system.
+### Login System
+
+- Allows users to sign up for a new account.
+- Enables users to log in to an existing account.
+- Displays user information on the main page.
+
+### Real-Time Communication System
+
+- Provides hint questions to help users input their information.
+- Generates a complete cover letter as output on the summary page.
+- Supports starting a new conversation.
+
+### History Management System
+
+- Displays a history of the latest corresponding output.
+
+
+## User Guide
+
+### Step 1: Create an Account
+
+- Sign up for a new account and log in to access the system.
 
 ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/19d01536-896b-4bd8-9131-6c778cda568f/a9068e78-5c87-425b-89b6-6b9c11c55be4/image.png)
 
-1. Follow the guide in the left column and provide the answers to the hint questions in the right page of step 1.
+### Step 2: Input Information
+
+- Follow the instructions in the left-hand column.
+- Provide answers to the hint questions in the right-hand section of Step 1.
 
 ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/19d01536-896b-4bd8-9131-6c778cda568f/8a7a1aa0-be8f-48f6-b7e5-d672724a8356/image.png)
 
-1. Repeat the step 2 in the guide for the Step 2 and Step 3 to provide more information.
-2. Get the full cover letter in the summary.
+### Step 3: Complete Additional Steps
 
-We provide one test case for the user to experience.
+- Repeat the process for Step 2 and Step 3 to provide additional information.
+
+### Step 4: Generate and Review
+
+- View the fully generated cover letter on the summary page.
+
+We also provide a test case for users to experience the system functionality.
+
+##
 
 ### Test case
 
@@ -105,6 +137,14 @@ People shop on Google more than a billion times a day - and the Commerce team is
 **Step 3**: Please write it in a formal and confident tone around 300 words. I hope that it could exhibit my professional skills well.
 
 ---
+
+
+
+
+
+
+
+
 ## Contribution
 
 UI/UX design: Huilin Xu
@@ -121,3 +161,10 @@ Prompt Engineering & Document & Test: Xian Wu
 
 ---
 
+## Conclusion
+
+Through this project, we practiced our Rust skills by developing front-end pages using the Yew framework and implementing backend functions to support API request/response communication, a login system, and various other supportive features.
+
+During the development process, we encountered several challenges due to the unique characteristics of the Rust programming language. Additionally, the limited availability of up-to-date guidance and documentation posed an obstacle to our progress. However, by leveraging the detailed error messages and hints provided by Rust, we were able to resolve most of these issues and successfully achieve a demo-level implementation of the product.
+
+For the backend development, we gained a clearer understanding of the different approaches required when working with Python and Rust. In the initial stages of building a new feature, it’s often difficult to fully account for all the details, such as data types, API structures, and other specifics. Compared to Python’s agile and flexible development style, Rust enforces a much stricter design philosophy. Its compiler performs rigorous checks for types, lifetimes, and other elements, treating any violations as errors. While this ensures the safety and robustness of the system, it also makes initializing projects or features more cumbersome. We found ourselves spending significant time fixing related functions across multiple files just to modify one or two interfaces during the process.
