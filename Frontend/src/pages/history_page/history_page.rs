@@ -3,15 +3,17 @@ use yew::prelude::*;
 use web_sys::{window, Document, Element};
 use serde_json::Value;
 use web_sys::HtmlInputElement;
-use crate::Header;
-// crate::pages::final_step_page::HistoryItem;
+// crate::pages::final_step_page::final_step_page::HistoryItemPage;
+// crate::pages::final_step_page::final_step_page::HistoryItem;
+// use crate::Header;
+use crate::components::{Sidebar, Header};
 
-// fetch the parsed output from final_step_page
+// #[derive(Deserialize)]
 
-// async store the response and update the sidebar
-// modify the sidebar of history list to be a button of showing all the history
-// add a new page for showing the history list
-// add a new page for showing the history item
+struct HistoryItem {
+    id: usize,
+    content: String,
+}
 
 fn get_history_text() -> Result<String, String> {
     let window = window().ok_or("Failed to get window".to_string())?;
@@ -25,24 +27,72 @@ fn get_history_text() -> Result<String, String> {
         .map_err(|err| format!("Failed to retrieve history from local storage: {:?}", err))?
         .ok_or("No history found in local storage".to_string())?;
 
+    // parse the history result and query
+    
     Ok(history_text)
 }
-
 
 #[function_component(HistoryItemPage)]
 pub fn history_page() -> Html {
     let history = get_history_text();
 
+    // html! {
+    //     <div class="page-container">
+    //         <Header show_line={false} />
+    //         // <p>{}</p>
+    //         <div class="app-content">
+    //             <Sidebar />
+
+    //             <div class="history-page-header">
+    //                 <div class="content-wrapper">
+
+    //                 <div class="avatar">
+    //                     <img src="assets/avator.png" alt="CoverCraft" class="avatar-image" />
+    //                 </div>
+    //                     <h1 class = "title">{ "History Page" }</h1>
+
+    //                     <div class="history-page">
+    //                     <p>{ history.unwrap_or("No history".to_string()) }</p>
+    //                     </div>
+    //                 </div>
+    //             </div>
+
+    //             // <div class="history-page">
+    //             //     <p>{ history.unwrap_or("No history".to_string()) }</p>
+    //             // </div>
+    //         </div>
+    //     </div>
+    // }
+   
+
     html! {
-        <div class="page-container">
+        <div class="page">
             <Header show_line={false} />
-            <div class = "history-page">
-                // <p>{ format!("History page") }</p>
-                <p>{ history.unwrap_or("No history".to_string()) }</p>
+            <div class="app-content">
+                <Sidebar />
+                <div class="content-wrapper">
+                    <div class="final-step-container">
+                        <h1 class="title">{"Your Cover Letter is Ready!"}</h1>
+                        
+                        <div class="chat-container fade-in">
+                            <div class="chat-message">
+                                <div class="message-header">
+                                    // <div class="avatar">
+                                        // <img src="assets/avator.png" alt="CoverCraft" class="avatar-image" />
+                                    // </div>
+                                    <span class="bot-name">{ "CoverCraft" }</span>
+                                </div>
+                                <div class="message-bubble">
+                                <p>{ history.unwrap_or("No history".to_string()) }</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
             </div>
         </div>
     }
-
     
 
 }
