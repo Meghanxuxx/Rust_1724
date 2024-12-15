@@ -1,6 +1,6 @@
 # Final Report
 
-**Team member**: Huilin Xu (1005969099, meghan.xu@mail.utoronto.ca), Shanzhi Zhang (,), Xian Wu (1009735146, amandaxian.wu@mail.utoronto.ca)
+**Team member**: Huilin Xu (1005969099, meghan.xu@mail.utoronto.ca), Shanzhi Zhang (, shanzhi.zhang@mail.utoronto.ca), Xian Wu (1009735146, amandaxian.wu@mail.utoronto.ca)
 
 ## Motivation
 
@@ -78,21 +78,21 @@ The main features are organized into three key aspects:
 
 - Displays a history of the latest corresponding output.
 
-
+---
 ## User Guide
 
 ### Step 1: Create an Account
 
-- Sign up for a new account and log in to access the system.
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/19d01536-896b-4bd8-9131-6c778cda568f/a9068e78-5c87-425b-89b6-6b9c11c55be4/image.png)
+- Sign up for a new account and log in to access the system from the home page.
+![home page](image-2.png)
+![step1](image.png)
 
 ### Step 2: Input Information
 
 - Follow the instructions in the left-hand column.
 - Provide answers to the hint questions in the right-hand section of Step 1.
 
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/19d01536-896b-4bd8-9131-6c778cda568f/8a7a1aa0-be8f-48f6-b7e5-d672724a8356/image.png)
+![step2](image-1.png)
 
 ### Step 3: Complete Additional Steps
 
@@ -101,6 +101,7 @@ The main features are organized into three key aspects:
 ### Step 4: Generate and Review
 
 - View the fully generated cover letter on the summary page.
+![summary result](image-3.png)
 
 We also provide a test case for users to experience the system functionality.
 
