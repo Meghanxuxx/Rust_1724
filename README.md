@@ -159,40 +159,43 @@ The project structure should looks like this:
 
 ```bash
 Rust_1724
-├── Backend         # All backend-related files (including rust_gpt, etc.)
 ├── Frontend        # All frontend-related files
-├── finalReport.md
-└── prompt.md
+├── README.md
+├── prompt.md
+├── Backend         # All backend-related files (including rust_gpt, etc.)
+    ├── rust_gpt
+        ├──src
+        ├──.env     # API Key
+        ├── ...
 ```
 
-**Step 2**: Set Up the WebAssembly Environment
+**Step 2**: Set Up Chatgpt API Key
+
+Navigate to Backend/rust_gpt and open the **.env** file. Replace OPENAI_API_KEY with your own ChatGPT API key, which you can obtain from https://platform.openai.com/api-keys.
+
+**Step 3**: Set Up the WebAssembly Environment and run the Frontend Service
 
 ```bash
-rustup target add wasm32-unknown-unknown # Need to add the WASM target for Rust and install the build tool
+# Assume you are in the top-level project directory: Rust_1724
+cd Frontend
+rustup target add wasm32-unknown-unknown # Need to add the WASM target and install the build tool
 cargo install trunk
+trunk serve
 ```
+The frontend will run at http://127.0.0.1:8080.
 
-**Step 3**: Run the Backend Service
+**Step 4**: Run the Backend Service
 
-Open a terminal window, navigate to 'Backend/rust_gpt', then build and run:
+In a **separate** terminal window, navigate to 'Backend/rust_gpt', then build and run:
 
 ```bash
+# Assume you are in the top-level project directory: Rust_1724
 cd Backend/rust_gpt
 cargo build
 cargo run
 ```
 
 Once running, the backend service will be available at http://127.0.0.1:8081.
-
-**Step 4**: Run the Frontend Service
-In a separate terminal window, navigate to the Frontend directory and start the frontend server:
-
-```bash
-cd Frontend
-trunk serve
-```
-
-The frontend will run at http://127.0.0.1:8080.
 
 **Step 5**: Access the Application
 
