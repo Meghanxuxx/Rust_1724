@@ -2,6 +2,9 @@
 
 **Team member**: Huilin Xu (1005969099, meghan.xu@mail.utoronto.ca), Shanzhi Zhang (, shanzhi.zhang@mail.utoronto.ca), Xian Wu (1009735146, amandaxian.wu@mail.utoronto.ca)
 
+## Video Demo
+URL: https://drive.google.com/file/d/1ctqJW5gmzOMTqyMHSDTDSnQ8PDx3Wjo2/view?usp=sharing
+
 ## Motivation
 
 As international students and new immigrants, we recognize the challenges newcomers had in finding employment and the urgent need to address this gap. Currently, many new immigrants, students, and marginalized groups are facing some significant disadvantages in finding jobs, not only in Canada, but all around the world. We recently surveyed 200 people and discovered six major obstacles that are preventing them from reaching their employment aspirations:
