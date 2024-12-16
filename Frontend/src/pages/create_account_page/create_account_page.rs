@@ -5,7 +5,6 @@ use yew::prelude::*;
 use yew_router::prelude::*;
 use wasm_bindgen_futures;
 use gloo_net::http::Request;
-use serde_json::json;
 use crate::types::User;
 
 async fn signup(user: &User) -> Result<(), String> {

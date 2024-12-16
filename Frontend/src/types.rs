@@ -11,7 +11,13 @@ pub struct User {
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct CoverLetterInput {
-    pub step: i32,           // 当前是第几步 (1-3)
-    pub content: String,    // 用户输入的内容
-    pub user_id: Option<String>,     // 用户ID，未登录时为空
+    pub step: i32,           // Current step (1-3)
+    pub content: String,    // User input
+    pub user_id: Option<String>,     // User ID, empty when not logged in
+}
+
+#[derive(Serialize, Deserialize, Clone)]
+pub struct HistoryItem {
+    pub id: usize,
+    pub content: String,
 }

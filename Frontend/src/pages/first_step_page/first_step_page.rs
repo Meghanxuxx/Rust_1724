@@ -9,14 +9,14 @@ use crate::Route;
 use yew_router::prelude::*;
 // use reqwasm::http::Request;
 
-// 获取用户ID
+// Get user ID
 fn get_user_id() -> Option<String> {
     let window = web_sys::window()?;
     let storage = window.local_storage().ok()??;
     storage.get_item("user_id").ok()?
 }
 
-// 提交第一步的内容
+// Send the contents of step 1
 async fn send_step_one(content: String) -> Result<(), String> {
     let input = CoverLetterInput {
         step: 1,

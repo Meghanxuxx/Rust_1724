@@ -4,8 +4,14 @@ use crate::components::sidebar::history::History;
 use yew_router::prelude::*;
 use crate::Route;
 
+#[derive(Properties, PartialEq)]
+pub struct Props {
+    #[prop_or_default]
+    pub active_route: Option<Route>,
+}
+
 #[function_component(Sidebar)]
-pub fn sidebar() -> Html {
+pub fn sidebar(props: &Props) -> Html {
     let navigator = use_navigator().unwrap();
     let show_modal = use_state(|| false);
     
@@ -56,14 +62,12 @@ pub fn sidebar() -> Html {
             <div class="sidebar-content">
                 <Link<Route> to={Route::Home} classes="logo-link">
                     <div class="logo">
-                        <img src="assets/logo.png" alt="Logo" class="logo-icon" />
+                        <img src="/assets/logo.png" alt="Logo" class="logo-icon" />
                         <span class="logo-text">{"CoverCraft"}</span>
                     </div>
                 </Link<Route>>
-                <Steps />
-                <div class="scrollable-content">
-                    <History />
-                </div>
+                <Steps active_route={props.active_route.clone()} />
+                <History active_route={props.active_route.clone()} />
                 <div class="sidebar-spacer"></div>
 
                 <div class="more-features">

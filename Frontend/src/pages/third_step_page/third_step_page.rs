@@ -8,14 +8,14 @@ use crate::types::CoverLetterInput;
 use crate::Route;
 use yew_router::prelude::*;
 
-// 获取用户ID
+// Get user ID
 fn get_user_id() -> Option<String> {
     let window = web_sys::window()?;
     let storage = window.local_storage().ok()??;
     storage.get_item("user_id").ok()?
 }
 
-// 提交第三步的内容
+// Submit the contents of step 3
 async fn send_step_three(content: String) -> Result<(), String> {
     let input = CoverLetterInput {
         step: 3,

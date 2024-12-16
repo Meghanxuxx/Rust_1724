@@ -228,7 +228,7 @@ body {
 }
 
 .sidebar {
-    width: 300px;
+    width: 280px;
     height: 100vh;
     background-color: #FCFCFC;
     display: flex;
@@ -301,13 +301,15 @@ body {
 .steps-list {
     list-style: none;
     padding: 0;
-    margin-top: 10px;
+    margin-top: 24px;
 }
 
 .logo-link {
     text-decoration: none;
     display: flex;
     align-items: center;
+    margin-bottom: 48px;
+    margin-left: 16px;
 }
 
 .logo-link .logo-text {
@@ -322,7 +324,7 @@ body {
 .step-item {
     display: flex;
     align-items: center;
-    margin-bottom: 8px;
+    margin-bottom: 16px;
 }
 
 .step-button {
@@ -336,31 +338,73 @@ body {
     cursor: pointer;
 }
 
+.step-button.active {
+    color: #2984FF;
+    font-weight: 600;
+}
+
 .step-item:hover .step-button {
     background-color: #F5F7FB;
     border-radius: 4px;
     padding: 4px 8px;
 }
 
+.step-item:hover .step-button.active {
+    background-color: #E8F1FF;
+}
+
 .section {
     position: relative;
+    margin-bottom: 24px;
+}
+
+.section::before {
+    content: '';
+    position: absolute;
+    left: 36px;
+    top: 28px;
+    width: 2px;
+    background-color: #94A3B8;
+    height: calc(100% - 16px);
+    display: none;
+}
+
+.section.open::before {
+    display: block;
+}
+
+.section.closed::before {
+    display: none;
+}
+
+.section-header {
     display: flex;
-    flex-direction: column;
-    margin-top: 30px;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    padding-left: 16px;
 }
 
 .section-content {
-    position: relative;
-    flex: 1;
-    flex-direction: column;
-    min-height: 0;
+    margin-left: -10px;
 }
 
-.section.history {
-    flex: 1;
-    display: flex;
-    margin-top: 5px;
-    flex-direction: column;
+.section-list,
+.history-list {
+    list-style: none;
+    padding: 0;
+    margin: 8px 0;
+}
+
+.section-link,
+.history-link {
+    display: block;
+    padding: 4px 8px;
+    margin: 2px 0;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #475569;
+    text-decoration: none;
 }
 
 .section-header {
@@ -385,14 +429,7 @@ body {
 }
 
 .divider {
-    position: absolute;
-    left: 37px;
-    top: 28px;
-    flex-grow: 1;
-    bottom: auto;
-    width: 2px;
-    height: calc(100% - 50px);
-    background-color: #94A3B8;
+    display: none;
 }
 
 .section.closed .divider {
@@ -479,17 +516,14 @@ body {
 }
 
 .history-content {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    overflow-y: auto;
+    position: relative;
+    margin-left: 40px;
 }
 
-
 .history-list {
-    max-height: none;
+    list-style: none;
+    padding: 0;
+    margin: 8px 0;
 }
 
 .history-content::-webkit-scrollbar {
@@ -591,7 +625,7 @@ body {
 }
 
 .chat_history{
-    margin-bottom: 8px;
+    margin-bottom: 4px;
 }
 
 
@@ -690,6 +724,9 @@ body {
     align-self: center;
     flex-direction: column;
     justify-content: space-between;
+    position: fixed;
+    bottom: 80px;
+    left: 50px;
 }
 
 .history-link {
@@ -830,6 +867,20 @@ body {
     padding: 16px;
     flex: 1;
 }
+
+@media (max-width: 1024px) {
+    .chat-container {
+        max-width: 600px;
+    }
+    
+    .message-bubble {
+        max-width: 450px;
+    }
+    
+    .final-step-container {
+        max-width: 600px;
+    }
+}
 @media (min-width: 1601px) {
     .content-title {
         font-size: 100px;
@@ -837,6 +888,16 @@ body {
 
     .content-subtitle {
         font-size: 24px;
+    }
+}
+
+@media (max-width: 768px) {
+    .chat-container {
+        max-width: 500px;
+    }
+    
+    .message-bubble {
+        max-width: 400px;
     }
 }
 
@@ -1041,8 +1102,26 @@ body {
     border-radius: 24px;
     padding: 16px 24px;
     width: fit-content;
-    max-width: 1099px;
+    max-width: 800px;
     margin-left: 50px;
+}
+
+@media (max-width: 1366px) {
+    .message-bubble {
+        max-width: 600px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .message-bubble {
+        max-width: 500px;
+    }
+}
+
+@media (max-width: 768px) {
+    .message-bubble {
+        max-width: 400px;
+    }
 }
 
 .message-text {
@@ -1281,7 +1360,7 @@ body {
     align-items: center;
     text-align: center;
     max-width: 600px;
-    margin-top: 35vh;
+    margin-top: 25vh;
 }
 
 .account-quote-mark {
@@ -1465,7 +1544,7 @@ body {
     }
     
     .account-quote {
-        margin-top: 30vh;
+        margin-top: 20vh;
     }
 
     .account-form {
@@ -1475,7 +1554,7 @@ body {
 
 @media (min-width: 1920px) {
     .account-quote {
-        margin-top: 40vh;
+        margin-top: 30vh;
     }
     
     .account-quote-text {
@@ -1624,30 +1703,33 @@ body {
 
 .team-page {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     width: 100%;
-    margin: 0 auto;
-    padding: 6rem 2rem;
-    position: relative;
-    z-index: 1;
-    overflow: hidden;
-    flex: 1;
     min-height: calc(100vh - 72px);
+    padding-top: 72px;
+}
+
+.team-page .header {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    box-shadow: none !important;
+    background-color: #ffffff !important;
+    z-index: 1000 !important;
 }
 
 .team-content {
     flex: 1;
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 20px auto 0;
     text-align: center;
-    padding: 80px 20px;
+    padding: 0 20px;
 }
-
 .team-title {
     font-family: 'DM Serif Display', serif;
     font-size: 48px;
     color: #334B7D;
-    margin-top: 60px;
     margin-bottom: 16px;
 }
 
@@ -1656,7 +1738,6 @@ body {
     font-weight: 600;
     line-height: 1.5;
     color: #344C7D;
-    margin-top: 1rem;
     margin-bottom: 64px;
 }
 
@@ -1845,7 +1926,7 @@ body {
 
 .history-page-header {
     text-align: center;
-    margin: 10px 0 10px; /* Add more space at the top */
+    margin: 10px 0 10px;
     padding-bottom: 10px;
     border-bottom: 1px solid #ddd;
 }
@@ -1863,4 +1944,62 @@ body {
 .history-page p {
     font-size: 16px;
     color: #555;
+}
+
+.section.history {
+    margin-top: 26px;
+}
+
+@media (max-width: 1366px) {
+    .message-bubble {
+        max-width: 600px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .message-bubble {
+        max-width: 500px;
+    }
+}
+
+@media (max-width: 768px) {
+    .message-bubble {
+        max-width: 400px;
+    }
+}
+
+.logo-link {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    margin-bottom: 48px;
+    margin-left: 16px;
+}
+
+.header.with-line .logo-link {
+    margin-bottom: 5px;
+}
+
+.header.no-line .logo-link {
+    margin-bottom: 48px;
+}
+
+.section-link.active {
+    color: #2984FF !important;
+    font-weight: 600;
+    background-color: #F5F7FB;
+}
+
+.section-link:hover {
+    background-color: #F5F7FB;
+    text-decoration: none;
+}
+
+.team-page .header {
+    position: static !important;
+    box-shadow: none !important;
+}
+
+.header.with-line .logo-link {
+    margin-bottom: 5px;
 }

@@ -16,6 +16,7 @@ use pages::login_page::LoginPage;
 use pages::final_step_page::FinalStepPage;
 use pages::about_us::AboutUs;
 use pages::history_page::HistoryItemPage;
+use yew_router::prelude::Redirect;
 
 #[derive(Routable, PartialEq, Clone, Debug)]
 pub enum Route {
@@ -33,8 +34,8 @@ pub enum Route {
     ThirdStep,
     #[at("/step/:id")]
     Step { id: usize },
-    #[at("/history/:id")]
-    HistoryItem { id: usize },
+    #[at("/history")]
+    History,
     #[at("/final-step")]
     FinalStep,
     #[at("/about-us")]
@@ -63,6 +64,9 @@ fn switch(routes: Route) -> Html {
                 </div>
             </>
         },
+        Route::History => html! {
+            <HistoryItemPage />
+        },
         Route::CreateAccount => html! {
             <CreateAccountPage />
         },
@@ -81,16 +85,14 @@ fn switch(routes: Route) -> Html {
         Route::Step { id } => html! {
             <p>{ format!("Step page with id: {}", id) }</p>
         },
-        Route::HistoryItem { id } => html! {
-            <HistoryItemPage />
-            // <p>{ format!("History item page with id: {}", id) }</p>
-        },
         Route::FinalStep => html! {
             <FinalStepPage />
         },
         Route::AboutUs => html! {
             <AboutUs />
         },
-        Route::NotFound => html! { <p>{ "Page Not Found x_x" }</p> },
+        Route::NotFound => html! {
+            <Redirect<Route> to={Route::Home}/>
+        },
     }
 }

@@ -13,7 +13,7 @@ pub fn about_us() -> Html {
     let developers = vec![
         Developer {
             name: "Xian Wu",
-            email: "dev1@mail.utoronto.ca",
+            email: "amandaxian.wu@mail.utoronto.ca",
             avatar: "assets/xianwu.jpg"
         },
         Developer {
@@ -23,15 +23,15 @@ pub fn about_us() -> Html {
         },
         Developer {
             name: "Shanzhi Zhang",
-            email: "dev3@mail.utoronto.ca",
+            email: "shanzhi.zhang@mail.utoronto.ca",
             avatar: "assets/shanzhi.jpg"
         }
     ];
 
     html! {
         <div class="page">
-            <Header show_line={false} />
             <div class="team-page">
+                <Header show_line={false} />
                 <div class="team-content">
                     <h1 class="team-title">{"Meet Our Team"}</h1>
                     <p class="team-desc">{"The developers behind CoverDraft"}</p>
