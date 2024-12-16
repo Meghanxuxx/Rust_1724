@@ -1,6 +1,6 @@
 # Final Report
 
-**Team member**: Huilin Xu (1005969099, meghan.xu@mail.utoronto.ca), Shanzhi Zhang (, shanzhi.zhang@mail.utoronto.ca), Xian Wu (1009735146, amandaxian.wu@mail.utoronto.ca)
+**Team member**: Huilin Xu (1005969099, meghan.xu@mail.utoronto.ca), Shanzhi Zhang (1010527850, shanzhi.zhang@mail.utoronto.ca), Xian Wu (1009735146, amandaxian.wu@mail.utoronto.ca)
 
 ## Video Demo
 URL: https://drive.google.com/file/d/1ctqJW5gmzOMTqyMHSDTDSnQ8PDx3Wjo2/view?usp=sharing
